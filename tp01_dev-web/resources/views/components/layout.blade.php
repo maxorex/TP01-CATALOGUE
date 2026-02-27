@@ -1,4 +1,5 @@
-@props(["title" => "Tp01 - Blackriver Blades"])
+@props(["title" => "Tp01 - Blades", "css" => 'styles.css'])
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -7,33 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ $title }}</title>
 
-  <!-- Core styles -->
-    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-  <!-- Shared custom styles -->
-    <link rel="stylesheet" href="{{ asset('css/customs/header.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/customs/navbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
-
-  <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-  <!-- Core scripts -->
-    <script defer src="{{ asset('vendor/bootstrap/jquery-1.12.4.min.js') }}"></script>
-    <script defer src="{{ asset('vendor/bootstrap/popper.min.js') }}"></script>
-    <script defer src="{{ asset('vendor/bootstrap/bootstrap.min.js') }}"></script>
-    <script defer src="{{ asset('js/main.js') }}"></script>
+  <link rel="stylesheet" href="{{  asset("css/$css") }}" />
 </head>
 
 <body>
-  <x-header />
-  <x-navbar />
   {{ $slot }}
-  <x-footer />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

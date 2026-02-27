@@ -8,10 +8,30 @@ use Illuminate\Http\Request;
 
 class WeaponController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        //$weapons = Weapon::all();
-        //$categories = Category::all();
-        return view('products.index', compact('weapons', 'categories'));
+        $filtres = collect([]);
+
+        if ($request->has("recherche")) {
+            $recherche = $request->recherche;
+            $weapons = Weapon::where("nom", "LIKE", "%$recherche%")->orWhere("description", "LIKE", "%$recherche%")->get();
+        } elseif ($request->has("categories")) {
+            
+        } else {
+            $weapons = Weapon::all();
+        }
+
+        return view('weapons.index', [
+            "weapons" => $weapons,
+            "categories" => Category::all(),
+            "filtres" => $filtres
+        ]);
+    }
+
+    public function show($id)
+    {
+        return view('weapons._show', [
+            "weapon" => Weapon::findOrFail($id)
+        ]);
     }
 }
