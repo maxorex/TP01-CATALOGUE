@@ -6,41 +6,42 @@
     <div class="app-content">
         <section class="container">
             <h3>Catégories</h3>
-            <div class="row row-cols-auto g-2">
+            <div>
+                <form method="GET" class="row row-cols-auto g-2" action="{{ route('home') }}">
+                    @foreach ($categories as $category)
+                        <div class="col">
+                            <input type="checkbox" class="btn-check" id="categorie{{ $category->id }}" name="categories[]"
+                                value="{{ $category->id }}" autocomplete="off" @checked($filtres->contains($category->id))>
 
-                @foreach ($categories as $category)
-                    <div class="col">
+                            <label for="categorie{{ $category->id }}"
+                                class="category-card d-flex flex-column 
+                                align-items-center justify-content-center 
+                                text-center rounded-3">
 
-                        <input type="checkbox" class="btn-check" id="categorie{{ $category->id }}" name="categories[]"
-                            value="{{ $category->id }}" autocomplete="off" @checked($filtres->contains($category->id))>
+                                <img src="{{ asset("images/icons/$category->iconPath") }}" alt="{{ $category->name }}"
+                                    class="mb-1" width="32">
 
-                        <label for="categorie{{ $category->id }}"
-                            class="category-card d-flex flex-column 
-                            align-items-center justify-content-center 
-                            text-center rounded-3">
+                                <span class="small fw-semibold">
+                                    {{ $category->name }}
+                                </span>
+                            </label>
+                        </div>
+                    @endforeach
 
-                            <img src="{{ asset("images/icons/$category->iconPath") }}" alt="{{ $category->name }}"
-                                class="mb-1" width="32">
-
-                            <span class="small fw-semibold">
-                                {{ $category->name }}
-                            </span>
-
-                        </label>
-
-                    </div>
-                @endforeach
-
-                <div>
-                    <button type="submit" class="button-success d-flex flex-column 
+                    <div>
+                        <button type="submit"
+                            class="button-success d-flex flex-column 
                             align-items-center justify-content-center 
                             text-center rounded-3 btn btn-success">Filtrer</button>
-                </div>
+                    </div>
 
-                 <div>
-                    <a href="{{ route('home') }}" class="button-success d-flex flex-column 
+                    <div>
+                        <a href="{{ route('home') }}"
+                            class="button-success d-flex flex-column 
                             align-items-center justify-content-center 
                             text-center rounded-3 btn btn-primary">Réinitialiser</a>
+                    </div>
+                </form>
             </div>
 
             <div>

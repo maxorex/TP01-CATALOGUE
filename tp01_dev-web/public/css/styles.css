@@ -10,11 +10,12 @@ header {
     color: white;
     padding: 10px;
     z-index: 1000; 
+    background-color:#0f0f0f;
 }
 
 header.content {
     margin-top: 60px;
-    padding: 20px;
+    padding: 20px;  
 }
 
 body {
