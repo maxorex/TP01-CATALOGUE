@@ -13,8 +13,8 @@ class WeaponController extends Controller
         $filtres = collect([]);
 
         if ($request->has("recherche")) {
-            $recherche = $request->recherche;
-            $weapons = Weapon::where("nom", "LIKE", "%$recherche%")->orWhere("description", "LIKE", "%$recherche%")->get();
+            $reseach = $request->recherche;
+            $weapons = Weapon::where("nom", "LIKE", "%$reseach%")->orWhere("description", "LIKE", "%$reseach%")->get();
         } elseif ($request->has("categories")) {
             $categories = $request->categories;
 
@@ -34,8 +34,12 @@ class WeaponController extends Controller
 
     public function show($id)
     {
+        $weapon = Weapon::findOrFail($id);
+        $categories = Category::all();
+
         return view('weapons._show', [
-            "weapon" => Weapon::findOrFail($id)
+            "weapon" => $weapon,
+            "categories" => $categories
         ]);
     }
 }

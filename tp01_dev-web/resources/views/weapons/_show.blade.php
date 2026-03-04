@@ -12,6 +12,8 @@
                 <h1>{{ $weapon->name }}</h1>
                 <p>{{ $weapon->description }}</p>
                 <p class="h4">Prix: ${{ $weapon->price }}</p>
+                <P>{{ $weapon->category->name }}</P>
+                <P>Quantité disponible: {{ $weapon->amount }}</P>
             </div>
         </div>
     </section>
