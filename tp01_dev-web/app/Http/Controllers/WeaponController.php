@@ -12,9 +12,9 @@ class WeaponController extends Controller
     {
         $filtres = collect([]);
 
-        if ($request->has("recherche")) {
-            $reseach = $request->recherche;
-            $weapons = Weapon::where("nom", "LIKE", "%$reseach%")->orWhere("description", "LIKE", "%$reseach%")->get();
+        if ($request->has("search")) {
+            $search = $request->search;
+            $weapons = Weapon::where("name", "LIKE", "%$search%")->orWhere("description", "LIKE", "%$search%")->get();
         } elseif ($request->has("categories")) {
             $categories = $request->categories;
 

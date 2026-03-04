@@ -49,12 +49,18 @@
                 <div class="row g-3 g-lg-4">
                     @forelse ($weapons as $weapon)
                         <div class="col-12 col-sm-6 col-lg-3">
-                            <div class="product-card">
-                                <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
-                                <h3 class="product-name">{{ $weapon->name }}</h3>
-                                <p class="product-description">{{ $weapon->description }}</p>
-                                <p class="product-price">${{ $weapon->price }} $</p>
-                            </div>
+                                <div class="product-card" style="cursor: pointer;" onclick="window.location='{{ route('weapons.show', $weapon) }}'">
+                                    @if ($weapon->imagePath)
+                                        <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
+                                    @else
+                                        <img src="{{ asset('images/cartes/image-non-disponible.jpg') }}"
+                                            alt="product">
+                                    @endif
+
+                                    <h3 class="product-name">{{ $weapon->name }}</h3>
+                                    <p class="product-description">{{ $weapon->description }}</p>
+                                    <p class="product-price">${{ $weapon->price }} $</p>
+                                </div>
                         </div>
                     @empty
                         <p>Aucun produit disponible pour le moment.</p>

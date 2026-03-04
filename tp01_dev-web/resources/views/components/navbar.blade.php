@@ -1,16 +1,26 @@
-<nav class="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
     <div class="container">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
-            <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact</a></li>
-            <li class="nav-item">
-                <form class="header-form" method="GET" action="{{ route('home') }}">
-                    <input type="text" placeholder="Rechercher ..." name="reseach" />
-                    <button type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-            </li>
-        </ul>
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-3">
+                <li class="nav-item" style="cursor: pointer;">
+                    <a class="nav-link" href="{{ route('home') }}">Acceuil</a>
+                </li>
+
+                <li class="nav-item" style="cursor: pointer;">
+                    <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                </li>
+
+                <li>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2 reseach-button" type="search" placeholder="Rechercher..." aria-label="Search">
+                        <button class="btn" type="submit">
+                            Rechercher
+                        </button>
+                    </form>
+                </li>
+            </ul>   
+        </div>
     </div>
 </nav>
