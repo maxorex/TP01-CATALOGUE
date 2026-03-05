@@ -281,18 +281,6 @@ h3 {
     color: #f0f0f0;
 }
 
-@media (max-width: 991.98px) {
-    .weapon-detail-card {
-        padding: 1.2rem;
-    }
-
-    .weapon-image-wrap {
-        min-height: 260px;
-    }
-}
-
-@media (max-width: 575.98px) {
-    .weapon-meta-row {
-        grid-template-columns: 1fr;
-    }
+.btn-details{
+    
 }

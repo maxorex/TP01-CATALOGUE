@@ -49,19 +49,21 @@
                 <div class="row g-3 g-lg-4">
                     @forelse ($weapons as $weapon)
                         <div class="col-12 col-sm-6 col-lg-3">
-                            <a href="{{ route('weapons.show', $weapon->id) }}" class="text-decoration-none">
-                                <article class="product-card" style="cursor: pointer;">
+                            <a href="{{ route('weapons.show', $weapon->id) }}" class="btn-details text-decoration-none"
+                                data-bs-toggle="modal" data-bs-target="#weaponModal">
+                                <div class="product-card" style="cursor: pointer;">
                                     @if ($weapon->imagePath)
                                         <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
                                     @else
-                                        <img src="{{ asset('images/image-not-available.jpg') }}" alt="image non disponible">
+                                        <img src="{{ asset('images/image-not-available.jpg') }}"
+                                            alt="image non disponible">
                                     @endif
 
                                     <h3 class="product-name">{{ $weapon->name }}</h3>
                                     <p class="product-description">{{ $weapon->description }}</p>
                                     <p class="product-price">${{ $weapon->price }} $</p>
                                     <button class="btn ">Ajouter au panier</button>
-                                </article>
+                                </div>
                             </a>
                         </div>
                     @empty
@@ -72,7 +74,20 @@
         </section>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="weaponModal" tabindex="-1" aria-labelledby
+        ="weaponModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Le contenu de la modale sera chargé dynamiquement via JavaScript -->
+            </div>
+        </div>
 
+    </div>
+
+
+    <script src="{{ asset('js/index.js') }}"></script>
 
     <x-footer />
 

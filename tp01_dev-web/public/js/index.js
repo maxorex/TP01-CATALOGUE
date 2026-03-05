@@ -1,4 +1,4 @@
-document.querySelectorAll(".card .btn-details").forEach(element =>{
+document.querySelectorAll(".btn-details").forEach(element =>{
     element.addEventListener("click", (e) =>{
         e.preventDefault();
 
