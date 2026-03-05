@@ -1,11 +1,15 @@
 -- Catégories (déduites des tags, sans duplication)
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS weapons;
+
 INSERT INTO categories (id, name, iconPath) VALUES
 (1, 'Épée', 'sword.png'),
 (2, 'Dague', 'dagger.png'),
 (3, 'Hache', 'axe.png'),
 (4, 'Arme d’hast', 'polearm.png'),
 (5, 'Masse', 'mace.png'),
-(6, 'Arc', 'bow.png');
+(6, 'Arc', 'bow.png'),
+(7, 'Fléau d’arme', 'flail.png');
 
 
 -- Armes

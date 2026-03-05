@@ -31,15 +31,4 @@ class WeaponController extends Controller
             "filtres" => $filtres
         ]);
     }
-
-    public function show($id)
-    {
-        $weapon = Weapon::findOrFail($id);
-        $categories = Category::all();
-
-        return view('weapons._show', [
-            "weapon" => $weapon,
-            "categories" => $categories
-        ]);
-    }
 }

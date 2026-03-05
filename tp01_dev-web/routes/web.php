@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeaponController;
+use App\Http\Controllers\ShowController;
+use App\Http\Controllers\PageController;
 
 Route::get('/', [WeaponController::class, 'index'])->name('home');
 
-Route::get('/weapons/{id}', [WeaponController::class, 'show'])->whereNumber('id')->name('weapons.show');
+Route::get('/weapons/{id}', [ShowController::class, 'show'])->whereNumber('id')->name('weapons.show');
 
-Route::get('/contact', [App\Http\Controllers\PageController::class, 'contact'])->name('contact');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
