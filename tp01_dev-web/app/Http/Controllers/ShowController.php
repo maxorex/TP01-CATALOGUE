@@ -8,7 +8,7 @@ class ShowController extends Controller
 {
     public function show($id)
     {
-        $weapon = Weapon::with('category')->findOrFail($id);
+        $weapon = Weapon::findOrFail($id);
 
         return view('weapons._show', [
             'weapon' => $weapon,

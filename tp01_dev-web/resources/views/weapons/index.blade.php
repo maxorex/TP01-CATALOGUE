@@ -11,7 +11,7 @@
                     @foreach ($categories as $category)
                         <div class="col">
                             <input type="checkbox" class="btn-check" id="categorie{{ $category->id }}" name="categories[]"
-                                value="{{ $category->id }}" autocomplete="off" @checked($filtres->contains($category->id))>
+                                value="{{ $category->id }}" @checked($filtres->contains($category->id))>
 
                             <label for="categorie{{ $category->id }}"
                                 class="category-card d-flex flex-column 
@@ -49,43 +49,44 @@
                 <div class="row g-3 g-lg-4">
                     @forelse ($weapons as $weapon)
                         <div class="col-12 col-sm-6 col-lg-3">
-                            <a href="{{ route('weapons.show', $weapon->id) }}" class="btn-details text-decoration-none"
-                                data-bs-toggle="modal" data-bs-target="#weaponModal">
-                                <div class="product-card" style="cursor: pointer;">
+
+                            <div class="product-card">
+                                <a href="{{ route('weapons.show', $weapon->id) }}" style="cursor: pointer;"
+                                    class="btn-details text-decoration-none" data-bs-toggle="modal"
+                                    data-bs-target="#weaponModal">
+
                                     @if ($weapon->imagePath)
                                         <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
                                     @else
-                                        <img src="{{ asset('images/image-not-available.jpg') }}"
+                                        <img src="{{ asset('images/image-not-available.png') }}"
                                             alt="image non disponible">
                                     @endif
 
                                     <h3 class="product-name">{{ $weapon->name }}</h3>
                                     <p class="product-description">{{ $weapon->description }}</p>
-                                    <p class="product-price">${{ $weapon->price }} $</p>
-                                    <button class="btn ">Ajouter au panier</button>
+                                    <div class="product-price">{{ $weapon->price }} $</div>
+                                </a>
+                                <div class="d-flex justify-content-center gap-2 mt-2">
+                                    <button type="submit" class="btn button-style">Ajouter</button>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     @empty
-                        <p>Aucun produit disponible pour le moment.</p>
+                        <p>Aucun produits correspondants. </p>
                     @endforelse
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="weaponModal" tabindex="-1" aria-labelledby
-        ="weaponModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="weaponModal">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <!-- Le contenu de la modale sera chargé dynamiquement via JavaScript -->
+
             </div>
         </div>
 
     </div>
-
 
     <script src="{{ asset('js/index.js') }}"></script>
 

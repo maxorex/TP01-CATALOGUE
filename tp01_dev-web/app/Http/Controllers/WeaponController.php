@@ -14,13 +14,19 @@ class WeaponController extends Controller
 
         if ($request->has("search")) {
             $search = $request->search;
-            $weapons = Weapon::where("name", "LIKE", "%$search%")->orWhere("description", "LIKE", "%$search%")->get();
+
+            $weapons = Weapon::wherelike("name", "%$search%")
+                ->orWherelike("description", "%$search%")
+                ->get();
+
         } elseif ($request->has("categories")) {
             $categories = $request->categories;
 
-            $weapons = Weapon::whereIn('category_id', $categories)->get();
+            $weapons = Weapon::whereIn('category_id', $categories)
+                ->get();
 
             $filtres = collect($request->categories);
+
         } else {
             $weapons = Weapon::all();
         }

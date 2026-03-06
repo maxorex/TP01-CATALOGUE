@@ -1,7 +1,4 @@
 -- Catégories (déduites des tags, sans duplication)
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS weapons;
-
 INSERT INTO categories (id, name, iconPath) VALUES
 (1, 'Épée', 'sword.png'),
 (2, 'Dague', 'dagger.png'),
@@ -32,7 +29,7 @@ INSERT INTO weapons (id, name, description, price, category_id, amount, imagePat
 (17, 'Lance', 'Une arme d’hast dotée d’une pointe acérée, utilisée pour frapper d’estoc ou être lancée.', 100.00, 4, 10, 'spear.png'),
 (19, 'Hache d’abattage', 'Une grande hache conçue pour couper le bois, mais également efficace au combat.', 200.00, 3, 8, 'felling_axe.png'),
 (21, 'Épée courte', 'Une épée plus courte et maniable, utilisée pour le combat rapproché.', 120.00, 1, 12, 'short_sword.png'),
-(22, 'arc long', 'Un arc puissant capable de tirer des flèches à longue distance.', 180.00, 6, 5, 'long_bow.png'),
-(23, 'arc recourbé', 'Un arc avec des extrémités recourbées qui offrent une meilleure puissance de tir.', 200.00, 6, 7, 'recurve_bow.png'),
-(24, 'arc court', 'Un arc plus petit et plus maniable, idéal pour le combat rapproché.', 150.00, 6, 10, 'short_bow.png'),
-(25, 'hachette', 'Une petite hache à une main, souvent utilisée comme outil mais aussi comme arme de secours.', 80.00, 3, 12, 'hatchet.png');
+(22, 'Arc long', 'Un arc puissant capable de tirer des flèches à longue distance.', 180.00, 6, 5, 'long_bow.png'),
+(23, 'Arc recourbé', 'Un arc avec des extrémités recourbées qui offrent une meilleure puissance de tir.', 200.00, 6, 7, 'recurve_bow.png'),
+(24, 'Arc court', 'Un arc plus petit et plus maniable, idéal pour le combat rapproché.', 150.00, 6, 10, 'short_bow.png'),
+(25, 'Hachette', 'Une petite hache à une main, souvent utilisée comme outil mais aussi comme arme de secours.', 80.00, 3, 12, 'hatchet.png');
