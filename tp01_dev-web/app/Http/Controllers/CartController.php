@@ -10,82 +10,78 @@ class CartController extends Controller
 {
     public function index()
     {
-        // Récupérer le panier de la session ou un tableau vide s'il n'existe pas
-        $panier = session()->get("panier", []);
+        $cart = session()->get("cart", []);
 
-        // recuperer tous les ids du panier
-        $ids = array_keys($panier);
+        $ids = array_keys($cart);
 
-        // récupérer les produits correspondants à ces ids
-        $produits = [];
+        // Get products corresponding to these ids
+        $weapons = [];
         if (!empty($ids)) {
-            $produits = Weapon::whereIn("id", $ids)->get();
+            $weapons = Weapon::whereIn("id", $ids)->get();
         }
 
         $items = [];
-        $sousTotal = 0.00;
+        $subtotal = 0.00;
 
-        foreach ($produits as $produit) {
-            // récupérer la quantité du produit dans le panier
-            $quantite = $panier[$produit->id] ?? 0;
+        foreach ($weapons as $weapon) {
+            $quantity = $cart[$weapon->id] ?? 0;
 
-            $totalProduit = $produit->prix * $quantite;
+            $quantityTotal = $weapon->price * $quantity;
 
-            $sousTotal += $totalProduit;
+            $subtotal += $quantityTotal;
 
             $items[] = [
-                "produit" => $produit,
-                "quantite" => $quantite,
-                "totalProduit" => $totalProduit
+                "weapon" => $weapon,
+                "quantity" => $quantityTotal,
+                "totalProduct" => $quantityTotal
             ];
         }
 
-        $montants = $this->calculerMontants($sousTotal);
+        $amounts = $this->calculateAmounts($subtotal);
 
-        session()->put("total", $montants["total"]);
+        session()->put("total", $amounts["total"]);
 
-        //calculer le total du panier
-        return view('panier.index', [
+        // Calculate the total cart
+        return view('cart.index', [
             "items" => $items,
-            "sousTotal" => $sousTotal,
-            "totalTPS" => $montants["tps"],
-            "totalTVQ" => $montants["tvq"],
-            "total" => $montants["total"]
+            "subtotal" => $subtotal,
+            "totalTPS" => $amounts["tps"],
+            "totalTVQ" => $amounts["tvq"],
+            "total" => $amounts["total"]
         ]);
     }
 
-    public function ajouter(Request $request)
+    public function add(Request $request)
     {
-        // Récupérer l'ID du produit à ajouter
+        // Get the ID of the product to add
         $id = $request->id;
 
-        // verifier le produit à l'aide du modèle
+        // Verify the product using the model
         Weapon::findOrFail($id);
 
-        // recuperer le panier de la session ou en créer un nouveau
-        // exemple de panier : [id] => quantité
-        // $panier["1"] = 2; // 2 produits avec l'id 1
-        $panier = session()->get("panier", []);
+        // Get the cart from the session or create a new one
+        // Example cart: [id] => quantity
+        // $cart["1"] = 2; // 2 products with id 1
+        $cart = session()->get("cart", []);
 
-        // Ajouter un produit en s'assurant de ne pas écraser les produits déjà présents
-        if (isset($panier[$id])) {
-            $panier[$id]++;
+        // Add a product without overwriting products already present
+        if (isset($cart[$id])) {
+            $cart[$id]++;
         } else {
-            $panier[$id] = 1;
+            $cart[$id] = 1;
         }
 
-        // Enregistrer le panier mis à jour dans la session
-        session()->put("panier", $panier);
+        // Save the updated cart in the session
+        session()->put("cart", $cart);
 
-        // 
-        return redirect()->route("panier");
+        return redirect()->route("cart");
     }
 
-    private function calculerMontants($sousTotal) {
-        // Calculer La TPS, la TVQ et le total
-        $totalTPS = $sousTotal * Constantes::$TPS;
-        $totalTVQ = ($totalTPS + $sousTotal) * Constantes::$TVQ;
-        $total = $sousTotal + $totalTPS + $totalTVQ;
+    private function calculateAmounts($subtotal) {
+        // Calculate TPS, TVQ and total
+        $totalTPS = $subtotal * Constantes::$TPS;
+        $totalTVQ = ($totalTPS + $subtotal) * Constantes::$TVQ;
+        $total = $subtotal + $totalTPS + $totalTVQ;
 
         return [
             "tps" => number_format($totalTPS, 2, ','),

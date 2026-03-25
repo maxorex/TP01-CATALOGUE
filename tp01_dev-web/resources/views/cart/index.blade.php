@@ -1,104 +1,110 @@
-<x-layout css="panier.css" title="Panier – DevGear">
+<x-layout css="panier.css" title="Cart – Blackriver Blades">
 
-    <x-panier.nav />
+    <x-cart.nav />
 
-    <main class="py-lg-5 container py-4">
-        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end mb-4 gap-3">
-            <div>
-                <h1 class="display-6 fw-bold mb-1">Votre panier</h1>
-                <p class="muted mb-0">Vérifie les quantités, puis passe à la caisse.</p>
-            </div>
-        </div>
+    <main class="py-5 px-3 cart">
+        <div class="container">
+            <h1 class="mb-2">Your Cart</h1>
+            <p class="text-secondary mb-5">Review quantities before proceeding to checkout.</p>
 
-        <div class="row g-4">
-            <!-- Items -->
-            <div class="col-lg-8">
-                <div class="glass rounded-4 p-lg-4 p-3">
-                    <div class="table-responsive">
-                        <table class="mb-0 table align-middle">
-                            <thead>
-                                <tr class="muted small">
-                                    <th>Produit</th>
-                                    <th style="width:140px;">Prix</th>
-                                    <th style="width:180px;">Quantité</th>
-                                    <th style="width:140px;">Total</th>
-                                    <th style="width:60px;"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Ligne 1 -->
-                                @forelse ($items as $item)
-                                    <tr>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <img class="thumb" src="" alt="">
-                                            <div>
-                                                <div class="fw-semibold">{{ $item->produit->nom }}</h6>
-                                                    <p class="muted small mb-3">
-                                                        {{ $item->produit->description }}
-                                                    </p>
-                                                    <div class="price fw-semibold fs-4 mb-3">{{ $item->produit->prix }}
-                                                        $</div>
-                                                </div>
-                                                <td class="price">{{ $item->totalProduit }}</td>
-                                            </div>
-                                    </tr>
-                                @empty
-                                    <!-- Message panier vide (à afficher conditionnellement) -->
-                                    <tr>
-                                        <td colspan="5" class="muted py-4 text-center">
-                                            Votre panier est vide.
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="row g-4">
+                <!-- Cart Items -->
+                <div class="col-lg-8">
+                    <div class="cart-panel p-4 p-lg-4">
+                        @forelse ($items as $item)
+                            <div class="d-flex justify-content-between align-items-start pb-3 mb-3 border-bottom" style="border-color: rgba(255, 140, 0, 0.1);">
+                                <div class="d-flex gap-3 flex-grow-1">
+                                    @if ($item->weapon->imagePath)
+                                        <img src="{{ asset("images/$item->weapon->imagePath") }}" alt="{{ $item->weapon->name }}" class="rounded cart-item-thumb">
+                                    @else
+                                        <img src="{{ asset('images/image-not-available.png') }}" alt="image not available" class="rounded cart-item-thumb">
+                                    @endif
+                                    
+                                    <div class="min-w-0">
+                                        <h6 class="mb-1">{{ $item->weapon->name }}</h6>
+                                        <p class="small text-secondary mb-2">{{ $item->weapon->description }}</p>
+                                        <p class="text-gradient-orange mb-0">{{ number_format((float)$item->weapon->price, 2) }} $ / unit</p>
+                                    </div>
+                                </div>
 
-                    <hr class="my-4" style="border-color: rgba(255,255,255,.12);">
+                                <div class="text-end ms-3">
+                                    <div class="d-flex gap-2 justify-content-end mb-2">
+                                        <button type="button" class="btn btn-sm btn-outline-accent" data-action="decrease" style="width: 36px;">-</button>
+                                        <input type="number" class="form-control form-control-sm text-center" value="{{ $item->quantity }}" min="1" readonly style="width: 50px;">
+                                        <button type="button" class="btn btn-sm btn-outline-accent" data-action="increase" style="width: 36px;">+</button>
+                                    </div>
+                                    <p class="text-gradient-orange fw-bold mb-2">{{ number_format((float)$item->weapon->price * (float)$item->quantity, 2) }} $</p>
+                                    <button type="button" class="btn btn-sm btn-link text-danger" title="Remove">✕</button>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center py-5">
+                                <h5>Your cart is empty</h5>
+                                <p class="text-secondary mb-3">Start shopping by browsing our selection of products.</p>
+                                <a href="{{ route('home') }}" class="btn btn-accent">Continue Shopping</a>
+                            </div>
+                        @endforelse
 
-                    <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
-                        <div class="d-flex gap-2">
-                            <input class="form-control" placeholder="Code promo (ex: DEV10)" style="max-width: 260px;">
-                            <button class="btn btn-outline-accent">Appliquer</button>
-                        </div>
+                        @if (count($items) > 0)
+                            <div class="pt-3 border-top">
+                                <form method="POST" action="{{ route('cart.applyPromo') }}" class="d-flex flex-column flex-md-row gap-2">
+                                    @csrf
+                                    <input type="text" class="form-control" placeholder="Promo code (ex: DEV10)" name="promo_code" style="max-width: 260px;">
+                                    <button type="submit" class="btn btn-outline-accent">Apply</button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
-            </div>
 
-            <!-- Sommaire -->
-            <div class="col-lg-4">
-                <div class="glass rounded-4 p-lg-4 p-3">
-                    <h2 class="h5 fw-semibold mb-3">Commande</h2>
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="cart-panel p-4 p-lg-4">
+                        <h5 class="mb-4">Order Summary</h5>
 
-                    <div class="d-flex justify-content-between muted">
-                        <span>Sous-total</span>
-                        <span class="price" id="subtotal">{{ $sousTotal }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between muted mt-2">
-                        <span>Livraison</span>
-                        <span class="price">$0.00</span>
-                    </div>
-                    <div class="d-flex justify-content-between muted mt-2">
-                        <span>Taxes (TPS+TVQ)</span>
+                        <div class="d-flex justify-content-between mb-2 text-secondary">
+                            <span>Subtotal</span>
+                            <span class="text-gradient-orange">{{ isset($sousTotal) ? number_format((float)$sousTotal, 2) : '0.00' }}</span>
+                        </div>
 
-                        <span class="price" id="tax">{{ $totalTPS }}</span>
-                        <span class="price" id="tax">{{ $totalTVQ }}</span>
-                    </div>
+                        <div class="d-flex justify-content-between mb-2 text-secondary">
+                            <span>Shipping</span>
+                            <span class="text-gradient-orange">0.00</span>
+                        </div>
 
-                    <hr class="my-3" style="border-color: rgba(255,255,255,.12);">
+                        @if (isset($totalTPS))
+                            <div class="d-flex justify-content-between mb-2 text-secondary">
+                                <span>GST (5%)</span>
+                                <span class="text-gradient-orange">{{ number_format((float)$totalTPS, 2) }}</span>
+                            </div>
+                        @endif
 
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="fw-semibold">Total</span>
-                        <span class="price fs-4 fw-bold" id="total">{{ $total }}</span>
-                    </div>
+                        @if (isset($totalTVQ))
+                            <div class="d-flex justify-content-between mb-3 text-secondary">
+                                <span>QST (9.975%)</span>
+                                <span class="text-gradient-orange">{{ number_format((float)$totalTVQ, 2) }}</span>
+                            </div>
+                        @endif
 
-                    <div class="d-grid mt-4 gap-2">
-                        <button class="btn btn-accent btn-lg">Passer à la caisse</button>
-                        <button class="btn btn-outline-accent">Mettre à jour le panier</button>
+                        <div class="d-flex justify-content-between border-top border-secondary pt-3 mb-4">
+                            <span class="fw-bold">Total</span>
+                            <span class="text-gradient-orange fw-bold fs-5">{{ isset($total) ? number_format((float)$total, 2) : '0.00' }}</span>
+                        </div>
+
+                        @if (count($items) > 0)
+                            <div class="d-grid gap-2 mb-2">
+                                <button class="btn btn-accent">Proceed to Checkout</button>
+                                <button type="submit" form="update-cart-form" class="btn btn-outline-accent">Update Cart</button>
+                            </div>
+                        @endif
+
+                        <a href="{{ route('home') }}" class="btn btn-outline-accent w-100">Continue Shopping</a>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <x-footer />
 
 </x-layout>
