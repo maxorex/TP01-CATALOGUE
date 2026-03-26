@@ -1,104 +1,133 @@
-<x-layout css="panier.css" title="Cart – Blackriver Blades">
+<x-layout css="cart.css" title="Panier – Blackriver Blades">
 
     <x-cart.nav />
 
     <main class="py-5 px-3 cart">
         <div class="container">
-            <h1 class="mb-2">Your Cart</h1>
-            <p class="text-secondary mb-5">Review quantities before proceeding to checkout.</p>
-
+            <h1 class="mb-2">Votre panier</h1>
+            <br>
             <div class="row g-4">
-                <!-- Cart Items -->
-                <div class="col-lg-8">
-                    <div class="cart-panel p-4 p-lg-4">
-                        @forelse ($items as $item)
-                            <div class="d-flex justify-content-between align-items-start pb-3 mb-3 border-bottom" style="border-color: rgba(255, 140, 0, 0.1);">
-                                <div class="d-flex gap-3 flex-grow-1">
-                                    @if ($item->weapon->imagePath)
-                                        <img src="{{ asset("images/$item->weapon->imagePath") }}" alt="{{ $item->weapon->name }}" class="rounded cart-item-thumb">
-                                    @else
-                                        <img src="{{ asset('images/image-not-available.png') }}" alt="image not available" class="rounded cart-item-thumb">
-                                    @endif
-                                    
-                                    <div class="min-w-0">
-                                        <h6 class="mb-1">{{ $item->weapon->name }}</h6>
-                                        <p class="small text-secondary mb-2">{{ $item->weapon->description }}</p>
-                                        <p class="text-gradient-orange mb-0">{{ number_format((float)$item->weapon->price, 2) }} $ / unit</p>
-                                    </div>
-                                </div>
-
-                                <div class="text-end ms-3">
-                                    <div class="d-flex gap-2 justify-content-end mb-2">
-                                        <button type="button" class="btn btn-sm btn-outline-accent" data-action="decrease" style="width: 36px;">-</button>
-                                        <input type="number" class="form-control form-control-sm text-center" value="{{ $item->quantity }}" min="1" readonly style="width: 50px;">
-                                        <button type="button" class="btn btn-sm btn-outline-accent" data-action="increase" style="width: 36px;">+</button>
-                                    </div>
-                                    <p class="text-gradient-orange fw-bold mb-2">{{ number_format((float)$item->weapon->price * (float)$item->quantity, 2) }} $</p>
-                                    <button type="button" class="btn btn-sm btn-link text-danger" title="Remove">✕</button>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-center py-5">
-                                <h5>Your cart is empty</h5>
-                                <p class="text-secondary mb-3">Start shopping by browsing our selection of products.</p>
-                                <a href="{{ route('home') }}" class="btn btn-accent">Continue Shopping</a>
-                            </div>
-                        @endforelse
-
-                        @if (count($items) > 0)
-                            <div class="pt-3 border-top">
-                                <form method="POST" action="{{ route('cart.applyPromo') }}" class="d-flex flex-column flex-md-row gap-2">
-                                    @csrf
-                                    <input type="text" class="form-control" placeholder="Promo code (ex: DEV10)" name="promo_code" style="max-width: 260px;">
-                                    <button type="submit" class="btn btn-outline-accent">Apply</button>
-                                </form>
-                            </div>
-                        @endif
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
                     </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <div class="col-lg-8">
+
+                    <form action="{{ route('cart.modify') }}" method="POST">
+                        @csrf
+
+                        <div class="cart-panel p-4 p-lg-4">
+                            @forelse ($items as $item)
+                                <div class="d-flex justify-content-between align-items-start pb-3 mb-3 border-bottom"
+                                    style="border-color: rgba(255, 140, 0, 0.1);">
+                                    <div class="d-flex gap-3 flex-grow-1">
+
+
+                                        <img src="images/{{ $item['weapon']->imagePath }}"
+                                            alt="{{ $item['weapon']->imagePath }}" class="cart-item-image">
+
+
+                                        <div class="min-w-0">
+                                            <h6 class="mb-1 text-white">{{ $item['weapon']->name }}</h6>
+                                            <p class="small text-secondary mb-2">{{ $item['weapon']->description }}</p>
+                                            <p class="text-gradient-orange mb-0">
+                                                {{ number_format($item['weapon']->price, 2) }} $</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-end ms-3">
+                                        <div class="d-flex gap-2 justify-content-end mb-2">
+
+                                            @error("quantities")
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+
+                                            <button type="button" class="btn btn-sm btn-outline-accent"
+                                                data-action="decrease" style="width: 36px;">-</button>
+
+                                            <input type="number" min="1" name="quantities[{{ $item['weapon']->id }}]"
+                                                class="form-control form-control-sm text-center quantity-input"
+                                                value="{{ $item['quantity'] }}" style="width: 50px;">
+
+                                            <button type="button" class="btn btn-sm btn-outline-accent"
+                                                data-action="increase" style="width: 36px;">+</button>
+                                        </div>
+
+                                        <p class="text-gradient-orange fw-bold mb-2">
+                                            {{ number_format($item['weapon']->price * $item['quantity'], 2) }}$
+                                        </p>
+
+                                        <a href="{{ route('cart.delete', $item['weapon']->id) }}"
+                                            class="btn btn-sm btn-outline-light" title="Delete">✕</a>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="text-center py-5 text-secondary">
+                                    <h5>Votre panier est vide</h5>
+                                </div>
+                            @endforelse
+                            
+                            <div class="d-flex gap-2">
+                                <button type="submit" name="action" value="update"
+                                    class="btn btn-outline-accent flex-grow-1">Mettre à jour</button>
+                                <button type="submit" name="action" value="empty"
+                                    class="btn btn-outline-danger flex-grow-1">Vider le panier</button>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
 
-                <!-- Order Summary -->
+
+                <!-- Résumé de la commande -->
                 <div class="col-lg-4">
-                    <div class="cart-panel p-4 p-lg-4">
-                        <h5 class="mb-4">Order Summary</h5>
+                    <div class="cart-panel p-4 p-lg-4 text-secondary">
+                        <h5 class="mb-4">Résumé de la commande</h5>
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
-                            <span>Subtotal</span>
-                            <span class="text-gradient-orange">{{ isset($sousTotal) ? number_format((float)$sousTotal, 2) : '0.00' }}</span>
+                            <span>Sous-total</span>
+                            <span
+                                class="text-gradient-orange">{{ isset($sousTotal) ? number_format((float) $sousTotal, 2) : '0.00' }}</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
-                            <span>Shipping</span>
+                            <span>Livraison</span>
                             <span class="text-gradient-orange">0.00</span>
                         </div>
 
                         @if (isset($totalTPS))
                             <div class="d-flex justify-content-between mb-2 text-secondary">
-                                <span>GST (5%)</span>
-                                <span class="text-gradient-orange">{{ number_format((float)$totalTPS, 2) }}</span>
+                                <span>TPS (5%)</span>
+                                <span class="text-gradient-orange">{{ number_format((float) $totalTPS, 2) }}</span>
                             </div>
                         @endif
 
                         @if (isset($totalTVQ))
                             <div class="d-flex justify-content-between mb-3 text-secondary">
-                                <span>QST (9.975%)</span>
-                                <span class="text-gradient-orange">{{ number_format((float)$totalTVQ, 2) }}</span>
+                                <span>TVQ (9.975%)</span>
+                                <span class="text-gradient-orange">{{ number_format((float) $totalTVQ, 2) }}</span>
                             </div>
                         @endif
 
                         <div class="d-flex justify-content-between border-top border-secondary pt-3 mb-4">
                             <span class="fw-bold">Total</span>
-                            <span class="text-gradient-orange fw-bold fs-5">{{ isset($total) ? number_format((float)$total, 2) : '0.00' }}</span>
+                            <span
+                                class="text-gradient-orange fw-bold fs-5">{{ isset($total) ? number_format((float) $total, 2) : '0.00' }}</span>
                         </div>
 
                         @if (count($items) > 0)
                             <div class="d-grid gap-2 mb-2">
-                                <button class="btn btn-accent">Proceed to Checkout</button>
-                                <button type="submit" form="update-cart-form" class="btn btn-outline-accent">Update Cart</button>
+                                <button class="btn btn-accent">Passer à la caisse</button>
                             </div>
                         @endif
 
-                        <a href="{{ route('home') }}" class="btn btn-outline-accent w-100">Continue Shopping</a>
+                        <a href="{{ route('home') }}" class="btn btn-outline-accent w-100">Continuer vos achats</a>
                     </div>
                 </div>
             </div>

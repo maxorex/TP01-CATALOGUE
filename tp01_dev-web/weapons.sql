@@ -31,5 +31,5 @@ INSERT INTO weapons (id, name, description, price, category_id, amount, imagePat
 (21, 'Épée courte', 'Une épée plus courte et maniable, utilisée pour le combat rapproché.', 120.00, 1, 12, 'short_sword.png'),
 (22, 'Arc long', 'Un arc puissant capable de tirer des flèches à longue distance.', 180.00, 6, 5, 'long_bow.png'),
 (23, 'Arc recourbé', 'Un arc avec des extrémités recourbées qui offrent une meilleure puissance de tir.', 200.00, 6, 7, 'recurve_bow.png'),
-(24, 'Arc court', 'Un arc plus petit et plus maniable, idéal pour le combat rapproché.', 150.00, 6, 10, 'short_bow.png'),
+(24, 'Arc court', 'Un arc plus petit et plus maniable, idéal pour le combat rapproché.', 150.00, 6, 10, ''),
 (25, 'Hachette', 'Une petite hache à une main, souvent utilisée comme outil mais aussi comme arme de secours.', 80.00, 3, 12, 'hatchet.png');

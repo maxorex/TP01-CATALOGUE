@@ -12,8 +12,12 @@ Route::get('/weapons/{id}', [ShowController::class, 'show'])->whereNumber('id')-
 
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
 
+
 Route::post("/cart/modify", [CartController::class, 'modify'])->name('cart.modify');
+
+Route::get("/cart/delete/{id}", [CartController::class, 'delete'])->name('cart.delete');

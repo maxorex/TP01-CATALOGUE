@@ -55,9 +55,9 @@
                                     class="btn-details text-decoration-none" data-bs-toggle="modal"
                                     data-bs-target="#weaponModal">
 
-                                    @if ($weapon->imagePath)
+                                    @if ($weapon->imagePath || $weapon->imagePath !== '')
                                         <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
-                                    @else
+                                    @else 
                                         <img src="{{ asset('images/image-not-available.png') }}"
                                             alt="image non disponible">
                                     @endif
@@ -66,9 +66,11 @@
                                     <p class="product-description">{{ $weapon->description }}</p>
                                     <div class="product-price">{{ $weapon->price }} $</div>
                                 </a>
-                                <div class="d-flex justify-content-center gap-2 mt-2">
+                                <form method="POST" action="{{ route('cart.add') }}" class="d-flex justify-content-center gap-2 mt-2">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $weapon->id }}">
                                     <button type="submit" class="btn button-style">Ajouter</button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     @empty

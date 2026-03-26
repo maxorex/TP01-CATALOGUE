@@ -34,7 +34,9 @@
         </div>
     </div>
 </div>
-<div class="modal-footer weapon-modal-footer">
+<form method="POST" action="{{ route('cart.add') }}" class="modal-footer weapon-modal-footer">
+    @csrf
+    <input type="hidden" name="id" value="{{ $weapon->id }}">
     <button type="button" class="btn btn-outline-accent button-style" data-bs-dismiss="modal">Continuer</button>
-    <button type="button" class="btn btn-outline-accent button-style weapon-modal-add-btn">Ajouter au panier</button>
-</div>
+    <button type="submit" class="btn btn-outline-accent button-style weapon-modal-add-btn">Ajouter au panier</button>
+</form>
