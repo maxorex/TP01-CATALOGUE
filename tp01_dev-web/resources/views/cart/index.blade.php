@@ -28,30 +28,34 @@
                                     style="border-color: rgba(255, 140, 0, 0.1);">
                                     <div class="d-flex gap-3 flex-grow-1">
 
-
-                                        <img src="images/{{ $item['weapon']->imagePath }}"
-                                            alt="{{ $item['weapon']->imagePath }}" class="cart-item-image">
-
+                                        @if ($item['weapon']->imagePath)
+                                            <img src="images/{{ $item['weapon']->imagePath }}"
+                                                alt="{{ $item['weapon']->imagePath }}" class="cart-item-image">
+                                        @else
+                                            <img src="{{ asset('images/image-not-available.png') }}"
+                                                alt="image non disponible" class="cart-item-image">
+                                        @endif
 
                                         <div class="min-w-0">
                                             <h6 class="mb-1 text-white">{{ $item['weapon']->name }}</h6>
                                             <p class="small text-secondary mb-2">{{ $item['weapon']->description }}</p>
                                             <p class="text-gradient-orange mb-0">
-                                                {{ number_format($item['weapon']->price, 2) }} $</p>
+                                                {{ number_format($item['weapon']->price, 2) }} $ / Unité</p>
                                         </div>
                                     </div>
 
                                     <div class="text-end ms-3">
                                         <div class="d-flex gap-2 justify-content-end mb-2">
 
-                                            @error("quantities")
-                                            <p class="text-danger">{{ $message }}</p>
+                                            @error('quantities')
+                                                <p class="text-danger">{{ $message }}</p>
                                             @enderror
 
                                             <button type="button" class="btn btn-sm btn-outline-accent"
                                                 data-action="decrease" style="width: 36px;">-</button>
 
-                                            <input type="number" min="1" name="quantities[{{ $item['weapon']->id }}]"
+                                            <input type="number" min="0" max="{{ $item['weapon']->stock }}"
+                                                name="quantities[{{ $item['weapon']->id }}]"
                                                 class="form-control form-control-sm text-center quantity-input"
                                                 value="{{ $item['quantity'] }}" style="width: 50px;">
 
@@ -59,9 +63,7 @@
                                                 data-action="increase" style="width: 36px;">+</button>
                                         </div>
 
-                                        <p class="text-gradient-orange fw-bold mb-2">
-                                            {{ number_format($item['weapon']->price * $item['quantity'], 2) }}$
-                                        </p>
+                                        <br>
 
                                         <a href="{{ route('cart.delete', $item['weapon']->id) }}"
                                             class="btn btn-sm btn-outline-light" title="Delete">✕</a>
@@ -72,7 +74,7 @@
                                     <h5>Votre panier est vide</h5>
                                 </div>
                             @endforelse
-                            
+
                             <div class="d-flex gap-2">
                                 <button type="submit" name="action" value="update"
                                     class="btn btn-outline-accent flex-grow-1">Mettre à jour</button>
@@ -92,8 +94,7 @@
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
                             <span>Sous-total</span>
-                            <span
-                                class="text-gradient-orange">{{ isset($sousTotal) ? number_format((float) $sousTotal, 2) : '0.00' }}</span>
+                            <span class="text-gradient-orange">{{ $subtotal }}</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
@@ -104,21 +105,21 @@
                         @if (isset($totalTPS))
                             <div class="d-flex justify-content-between mb-2 text-secondary">
                                 <span>TPS (5%)</span>
-                                <span class="text-gradient-orange">{{ number_format((float) $totalTPS, 2) }}</span>
+                                <span class="text-gradient-orange">{{ $totalTPS }}</span>
                             </div>
                         @endif
 
                         @if (isset($totalTVQ))
                             <div class="d-flex justify-content-between mb-3 text-secondary">
                                 <span>TVQ (9.975%)</span>
-                                <span class="text-gradient-orange">{{ number_format((float) $totalTVQ, 2) }}</span>
+                                <span class="text-gradient-orange">{{ $totalTVQ }}</span>
                             </div>
                         @endif
 
                         <div class="d-flex justify-content-between border-top border-secondary pt-3 mb-4">
                             <span class="fw-bold">Total</span>
                             <span
-                                class="text-gradient-orange fw-bold fs-5">{{ isset($total) ? number_format((float) $total, 2) : '0.00' }}</span>
+                                class="text-gradient-orange fw-bold fs-5">{{ $total }}</span>
                         </div>
 
                         @if (count($items) > 0)

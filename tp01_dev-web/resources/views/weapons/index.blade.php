@@ -55,10 +55,10 @@
                                     class="btn-details text-decoration-none" data-bs-toggle="modal"
                                     data-bs-target="#weaponModal">
 
-                                    @if ($weapon->imagePath || $weapon->imagePath !== '')
+                                    @if ($weapon->imagePath)
                                         <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
                                     @else 
-                                        <img src="{{ asset('images/image-not-available.png') }}"
+                                        <img src="{{ asset("images/image-not-available.png") }}"
                                             alt="image non disponible">
                                     @endif
 

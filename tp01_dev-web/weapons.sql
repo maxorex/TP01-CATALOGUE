@@ -10,7 +10,7 @@ INSERT INTO categories (id, name, iconPath) VALUES
 
 
 -- Armes
-INSERT INTO weapons (id, name, description, price, category_id, amount, imagePath) VALUES
+INSERT INTO weapons (id, name, description, price, category_id, stock, imagePath) VALUES
 (1, 'Épée d’armes', 'Une épée polyvalente à une main utilisée par les chevaliers et les soldats.', 150.00, 1, 10, 'arming_sword.png'),
 (2, 'Épée longue', 'Une version plus longue de l’épée d’armes, idéale pour la taille et l’estoc.', 200.00, 1, 5, 'longsword.png'),
 (3, 'Dague de Castillon', 'Une petite lame facilement dissimulable, utilisée pour le combat rapproché et la discrétion.', 50.00, 2, 20, 'dagger.png'),
@@ -31,5 +31,5 @@ INSERT INTO weapons (id, name, description, price, category_id, amount, imagePat
 (21, 'Épée courte', 'Une épée plus courte et maniable, utilisée pour le combat rapproché.', 120.00, 1, 12, 'short_sword.png'),
 (22, 'Arc long', 'Un arc puissant capable de tirer des flèches à longue distance.', 180.00, 6, 5, 'long_bow.png'),
 (23, 'Arc recourbé', 'Un arc avec des extrémités recourbées qui offrent une meilleure puissance de tir.', 200.00, 6, 7, 'recurve_bow.png'),
-(24, 'Arc court', 'Un arc plus petit et plus maniable, idéal pour le combat rapproché.', 150.00, 6, 10, ''),
+(24, 'Arc court', 'Un arc plus petit et plus maniable, idéal pour le combat rapproché.', 150.00, 6, 10, null),
 (25, 'Hachette', 'Une petite hache à une main, souvent utilisée comme outil mais aussi comme arme de secours.', 80.00, 3, 12, 'hatchet.png');

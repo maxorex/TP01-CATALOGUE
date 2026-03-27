@@ -8,10 +8,9 @@ document.querySelectorAll(".btn-details").forEach(element =>{
         const href = e.currentTarget.href;
 
         axios.get(href).then(response => {
-            console.log(response.data);
             modale.innerHTML = response.data;
         }).catch(error => {
-            console.log(error);
+            modale.innerHTML = "Erreur lors du chargement des détails.";
         })
     })
 })
