@@ -100,7 +100,7 @@
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
                             <span>Livraison</span>
-                            <span class="text-gradient-orange">0.00</span>
+                            <span class="text-gradient-orange">0,00</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
