@@ -58,10 +58,6 @@ body {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
 }
 
-.cart-panel:hover {
-    border-color: #ff8c00;
-    box-shadow: 0 10px 30px rgba(255, 140, 0, 0.2);
-}
 
 .cart-item-thumb {
     width: 80px;

@@ -1,4 +1,4 @@
-<x-layout title="Acceuil">
+<x-layout title="Accueil">
 
     <x-header />
     <x-navbar />
@@ -69,12 +69,12 @@
                                 <form method="POST" action="{{ route('cart.add') }}" class="d-flex justify-content-center gap-2 mt-2">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $weapon->id }}">
-                                    <button type="submit" class="btn button-style">Ajouter</button>
+                                    <button type="submit" class="btn button-style">Ajouter au panier</button>
                                 </form>
                             </div>
                         </div>
                     @empty
-                        <p>Aucun produits correspondants. </p>
+                        <p>Aucun produit</p>
                     @endforelse
                 </div>
             </div>

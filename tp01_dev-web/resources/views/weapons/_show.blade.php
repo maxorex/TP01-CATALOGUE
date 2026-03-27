@@ -27,7 +27,7 @@
             </p>
 
             <p class="weapon-modal-stock mb-3">
-                Stock disponible: <span>{{ $weapon->amount }}</span>
+                Stock disponible: <span>{{ $weapon->stock }}</span>
             </p>
 
             <div class="modal-weapon-price fw-semibold">{{ $weapon->price }} $</div>

@@ -8,7 +8,7 @@
             <br>
             <div class="row g-4">
                 @if (session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-secondary ">
                         {{ session('success') }}
                     </div>
                 @endif
@@ -17,8 +17,8 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <div class="col-lg-8">
 
+                <div class="col-lg-8">
                     <form action="{{ route('cart.modify') }}" method="POST">
                         @csrf
 
@@ -38,9 +38,10 @@
 
                                         <div class="min-w-0">
                                             <h6 class="mb-1 text-white">{{ $item['weapon']->name }}</h6>
+
                                             <p class="small text-secondary mb-2">{{ $item['weapon']->description }}</p>
                                             <p class="text-gradient-orange mb-0">
-                                                {{ number_format($item['weapon']->price, 2) }} $ / Unité</p>
+                                                {{ $item['weapon']->price }} $ / Unité</p>
                                         </div>
                                     </div>
 
@@ -63,7 +64,7 @@
                                                 data-action="increase" style="width: 36px;">+</button>
                                         </div>
 
-                                        <br>
+                                        <p class="text-gradient-orange">Total: {{ $item['totalProduct'] }} $</p>
 
                                         <a href="{{ route('cart.delete', $item['weapon']->id) }}"
                                             class="btn btn-sm btn-outline-light" title="Delete">✕</a>
@@ -71,13 +72,13 @@
                                 </div>
                             @empty
                                 <div class="text-center py-5 text-secondary">
-                                    <h5>Votre panier est vide</h5>
+                                    <h5>Votre panier est vide.</h5>
                                 </div>
                             @endforelse
 
                             <div class="d-flex gap-2">
                                 <button type="submit" name="action" value="update"
-                                    class="btn btn-outline-accent flex-grow-1">Mettre à jour</button>
+                                    class="btn btn-outline-primary flex-grow-1">Mettre à jour</button>
                                 <button type="submit" name="action" value="empty"
                                     class="btn btn-outline-danger flex-grow-1">Vider le panier</button>
                             </div>
@@ -102,31 +103,24 @@
                             <span class="text-gradient-orange">0.00</span>
                         </div>
 
-                        @if (isset($totalTPS))
-                            <div class="d-flex justify-content-between mb-2 text-secondary">
-                                <span>TPS (5%)</span>
-                                <span class="text-gradient-orange">{{ $totalTPS }}</span>
-                            </div>
-                        @endif
+                        <div class="d-flex justify-content-between mb-2 text-secondary">
+                            <span>TPS (5%)</span>
+                            <span class="text-gradient-orange">{{ $totalTPS }}</span>
+                        </div>
 
-                        @if (isset($totalTVQ))
-                            <div class="d-flex justify-content-between mb-3 text-secondary">
-                                <span>TVQ (9.975%)</span>
-                                <span class="text-gradient-orange">{{ $totalTVQ }}</span>
-                            </div>
-                        @endif
+                        <div class="d-flex justify-content-between mb-3 text-secondary">
+                            <span>TVQ (9.975%)</span>
+                            <span class="text-gradient-orange">{{ $totalTVQ }}</span>
+                        </div>
 
                         <div class="d-flex justify-content-between border-top border-secondary pt-3 mb-4">
                             <span class="fw-bold">Total</span>
-                            <span
-                                class="text-gradient-orange fw-bold fs-5">{{ $total }}</span>
+                            <span class="text-gradient-orange fw-bold fs-5">{{ $total }}</span>
                         </div>
 
-                        @if (count($items) > 0)
-                            <div class="d-grid gap-2 mb-2">
-                                <button class="btn btn-accent">Passer à la caisse</button>
-                            </div>
-                        @endif
+                        <div class="d-grid gap-2 mb-2">
+                            <button class="btn btn-accent">Passer à la caisse</button>
+                        </div>
 
                         <a href="{{ route('home') }}" class="btn btn-outline-accent w-100">Continuer vos achats</a>
                     </div>

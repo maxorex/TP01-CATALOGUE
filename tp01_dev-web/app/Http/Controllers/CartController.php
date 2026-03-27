@@ -66,7 +66,7 @@ class CartController extends Controller
 
         session()->put("cart", $cart);
 
-        return redirect()->route("cart")->with("success", "Produit ajouté au panier !");
+        return redirect()->route("cart")->with("success", "Le produit a été ajouté au panier");
     }
 
     public function delete($id)
@@ -92,19 +92,21 @@ class CartController extends Controller
 
     public function modify(Request $request)
     {
-        $validated = $request->validate([
-            "action" => "required",
-            "quantities" => "required|array",
-        ],
-        [
-            "quantities.required" => "Le champ quantitier est requis.",
-        ]);
+        $validated = $request->validate(
+            [
+                "action" => "required",
+                "quantities" => "required|array",
+            ],
+            [
+                "quantities.required" => "La quantité est obligatoire",
+            ]
+        );
 
         $action = $request->input("action", "update");
 
-        if($action === "empty") {
+        if ($action === "empty") {
             session()->forget("cart");
-            return redirect()->route("cart")->with("success", "Panier vidé");
+            return redirect()->route("cart")->with("success", "Le panier a été vidé");
         }
 
         $quantities = $request->input("quantities", []);
@@ -122,9 +124,9 @@ class CartController extends Controller
         }
         empty($cart) ? session()->forget("cart") : session()->put("cart", $cart);
 
-        return redirect()->route("cart")->with("success", "Panier mis à jour !");
+        return redirect()->route("cart")->with("success", "Le panier a été mis à jour");
     }
-    
+
 
     private function calculateAmounts($subtotal)
     {
