@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeaponController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', [WeaponController::class, 'index'])->name('home');
 
@@ -19,3 +20,25 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post("/cart/modify", [CartController::class, 'modify'])->name('cart.modify');
 
 Route::get("/cart/delete/{id}", [CartController::class, 'delete'])->name('cart.delete');
+
+
+
+Route::middleware('guest:client')->group(function () {
+
+    Route::get("/register", [AuthController::class, "registerForm"])
+        ->name("registerForm");
+
+    Route::post("/register", [AuthController::class, "register"])
+        ->name("register");
+
+    Route::get("/login", [AuthController::class, "loginForm"])
+        ->name("loginForm");
+
+    Route::post("/login", [AuthController::class, "login"])
+        ->middleware('throttle:5,1')
+        ->name("login");
+});
+
+Route::post("/logout", [AuthController::class, "logout"])
+    ->middleware('auth:client')
+    ->name("logout");

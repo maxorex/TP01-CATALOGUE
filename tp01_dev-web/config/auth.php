@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'client' => [
+            'driver' => 'session', // ou on enregistre les infos du guard
+            'provider' => 'clients', // le fourniseur, celui qui s'en occupe
+        ]
     ],
 
     /*
@@ -64,6 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+        'clients' => [
+            'driver' => 'eloquent', // modele eloquant
+            'model' => App\Models\Client::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
