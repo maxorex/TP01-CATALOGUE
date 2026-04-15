@@ -8,12 +8,17 @@ body {
     inset: 0 0 auto;
     z-index: 1000;
     padding: 10px;
-    color: #fff;
+    color: #e9edf2;
     background-color: #0f0f0f;
-    border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 140, 0, 0.25);
     min-height: 70px;
     display: flex;
     align-items: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.navbar {
+    background-color: #0f0f0f;
 }
 
 .footer {
@@ -37,7 +42,7 @@ body {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(90deg, #ffb347, #ff6a00);
+    background: linear-gradient(90deg, #f2c77c, #d18b2f);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -50,11 +55,51 @@ body {
 .navbar-nav,
 .page-title,
 .category-name,
-.reseach-button {
+.research-button {
     background: linear-gradient(90deg, #ffb347, #ff6a00);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.bg-research {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 140, 0, 0.25);
+}
+
+.header .form-control {
+    color: #e9edf2;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+.header .form-control::placeholder {
+    color: #aeb8c2;
+}
+
+.header .form-control:focus {
+    color: #e9edf2;
+    border-color: rgba(209, 139, 47, 0.45);
+    background-color: transparent;
+    box-shadow: 0 0 0 0.2rem rgba(209, 139, 47, 0.15);
+}
+
+.header .btn-outline-light {
+    color: #e6dccd;
+    border-color: rgba(209, 139, 47, 0.5);
+    background-color: rgba(255, 140, 0, 0.08);
+}
+
+.header .btn-outline-light:hover,
+.header .btn-outline-light:focus {
+    color: #101316;
+    border-color: #d18b2f;
+    background-color: #d18b2f;
+}
+
+.client-name {
+    color: #d4c2a5;
+    font-weight: 600;
 }
 
 .page-title {
@@ -210,7 +255,6 @@ h3 {
     letter-spacing: 0.01em;
 }
 
-/* Cart Button */
 .btn-cart {
     display: flex;
     align-items: center;
@@ -232,5 +276,13 @@ h3 {
 }
 
 .cart-icon {
-    font-size: 1.5rem;
+    font-size: 1rem;
+}
+
+.client-name {
+    border: 1px solid rgba(255, 140, 0, 0.15);
+    border-radius: 8px;
+    background: #1a1a1a;
+    padding: 0.35rem 0.85rem;
+    font-weight: 600;
 }

@@ -7,7 +7,7 @@
                 ← Accueil
             </a>
             <h2 class="h2">Connexion</h2>
-{{-- 
+            {{-- 
             @error('nom')
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Erreur</strong> {{ $message }}

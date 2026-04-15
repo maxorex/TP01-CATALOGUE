@@ -29,15 +29,24 @@ class AuthController extends Controller
      * @param Request $request
      * @return Redirect
      */
-    public function register(LoginRequest $request)
+    public function register(RegisterRequest $request)
     {
         $donnees = $request->validated();
 
 
         $client = new Client();
         $client->name = $donnees["name"];
+        $client->firstname = $donnees["firstname"];
         $client->email = $donnees["email"];
         $client->password = Hash::make($donnees["password"]);
+        $client->address = $donnees["address"];
+        $client->city = $donnees["city"];
+        $client->postal_code = $donnees["postal_code"];
+        $client->province = $donnees["province"];
+        
+        if (isset($donnees["phone"])) {
+            $client->phone = $donnees["phone"];
+        }
 
         $client->save();
 

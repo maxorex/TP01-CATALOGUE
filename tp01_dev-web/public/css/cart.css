@@ -44,11 +44,11 @@ body {
 }
 
 .cart-navbar .nav-link {
-    color: #ffb347 !important;
+    color: #ffb347;
 }
 
 .cart-navbar .nav-link:hover {
-    color: #ff8c00 !important;
+    color: #ff8c00;
 }
 
 .cart-panel {

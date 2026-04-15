@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeaponController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', [WeaponController::class, 'index'])->name('home');
 
@@ -21,6 +22,22 @@ Route::post("/cart/modify", [CartController::class, 'modify'])->name('cart.modif
 
 Route::get("/cart/delete/{id}", [CartController::class, 'delete'])->name('cart.delete');
 
+
+Route::get("/profile/info", [ProfileController::class, "profileEditInfo"])
+    ->middleware('auth:client')
+    ->name("profile.edit-info");
+
+Route::get("/profile/password", [ProfileController::class, "profileEditPassword"])
+    ->middleware('auth:client')
+    ->name("profile.edit-password");
+
+Route::post("/profile/info", [ProfileController::class, "profileUpdateInfo"])
+    ->middleware('auth:client')
+    ->name("profile.update-info");
+
+Route::post("/profile/password", [ProfileController::class, "profileUpdatePassword"])
+    ->middleware('auth:client')
+    ->name("profile.update-password");
 
 
 Route::middleware('guest:client')->group(function () {

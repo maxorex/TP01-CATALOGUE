@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     {
         return [
             "email" => "required|email|max:255",
-            "password" => "required"
+            "password" => "required",
         ];
     }
 
@@ -34,7 +34,6 @@ class LoginRequest extends FormRequest
             "email.max" => "L'email ne doit pas dépasser 255 caractères",
             "email.email" => "L'email doit être une adresse email valide",
             "password.required" => "Le mot de passe est requis",
-            
         ];
     }
 }

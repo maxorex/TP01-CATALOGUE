@@ -1,49 +1,42 @@
 <header class="header">
-    <div class="container d-flex justify-content-between align-items-center">
+    <div class="container d-flex align-items-center gap-3">
         <div class="d-flex align-items-center gap-2">
             <img class="header-logo" src="{{ asset('images/icons/anvil.png') }}" alt="Icon">
             <h1 class="header-title">Blackriver Blades</h1>
         </div>
-        <form class="d-flex bg-dark rounded-2 flex-grow-1 mx-3" method="GET" action="{{ route('home') }}">
-            <input class="form-control me-2 " type="text" placeholder="Rechercher..." name="search"
+        <form class="d-flex bg-research rounded-2 flex-grow-1 mx-3" method="GET" action="{{ route('home') }}">
+            <input class="form-control me-2" type="text" placeholder="Rechercher..." name="search"
                 value="{{ request()->search }}">
-            <button class="btn reseach-button" type="submit">
+            <button class="btn research-button" type="submit">
                 Rechercher
             </button>
         </form>
 
-        @auth('client')
-            <li class="nav-item ms-lg-2">
-                {{ Auth::guard('client')->user()->name }}
-            </li>
-            <li class="nav-item ms-lg-1">
+        <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-auto">
+            @auth('client')
+                <span class="client-name">
+                    {{ Auth::guard('client')->user()->name }}
+                </span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-outline-accent position-relative">
+                    <button type="submit" class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap">
                         Déconnexion
                     </button>
                 </form>
-            </li>
-        @endauth
+            @endauth
 
-        @guest('client')
-            <li class="nav-item ms-lg-1">
-                <a class="btn btn-outline-accent position-relative" href="{{ route('loginForm') }}">
+            @guest('client')
+                <a class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap" href="{{ route('loginForm') }}">
                     Connexion
                 </a>
-            </li>
-            <li class="nav-item ms-lg-1">
-                <a class="btn btn-outline-accent position-relative" href="{{ route('registerForm') }}">
+                <a class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap" href="{{ route('registerForm') }}">
                     Inscription
                 </a>
-            </li>
-        @endguest
+            @endguest
 
-        <div class="col-4">
-            <a href="{{ route('cart') }}" class="btn btn-outline-light d-inline-flex align-items-center gap-2"
+            <a href="{{ route('cart') }}" class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap"
                 title="Panier">
-                <span>Panier</span>
-                <span class="cart-icon">🛒</span>
+                <span>Panier <span >🛒</span></span>
             </a>
         </div>
     </div>
