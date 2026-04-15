@@ -1,5 +1,8 @@
 <x-layout titre="DevGear - Connexion">
 
+    {{-- TODO[TP03]: Verifier la correspondance avec la route demandee /connexion (FR)
+         et ajuster les liens si vous conservez aussi les routes /login. --}}
+
     <div>
         <div>
 

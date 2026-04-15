@@ -21,9 +21,9 @@ class ClientSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'address' => '123 Dragon Ball St',
                 'city' => 'Namek',
-                'postal_code' => '12345',
+                'postal_code' => 'F3R 1T1',
                 'province' => 'QC',
-                'phone' => '555-1234',
+                'phone' => '211-555-1234',
             ]);
 
             Client::create([
@@ -33,8 +33,9 @@ class ClientSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'address' => '456 Namek Ave',
                 'city' => 'Namek',
-                'postal_code' => '12345',
+                'postal_code' => 'U2V 4B5',
                 'province' => 'ON',
+                'phone' => '282-555-5678',
             ]);
 
             Client::create([
@@ -44,8 +45,8 @@ class ClientSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'address' => '789 West City Rd',
                 'city' => 'West City',
-                'postal_code' => '67890',
-                'province' => 'West Province',
+                'postal_code' => 'H1H 1H1',
+                'province' => 'ON',
             ]);
 
             Client::create([
@@ -55,7 +56,7 @@ class ClientSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'address' => '101 Gotham St',
                 'city' => 'East Side',
-                'postal_code' => '11111',
+                'postal_code' => 'J2J 2J2',
                 'province' => 'DS',
             ]);
 
@@ -66,7 +67,7 @@ class ClientSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'address' => '101 Stark Tower Rd',
                 'city' => 'New York',
-                'postal_code' => '10001',
+                'postal_code' => 'M4B 1B3',
                 'province' => 'NY',
             ]);
         }

@@ -1,5 +1,12 @@
 <x-layout titre="DevGear - Créer un compte">
 
+    {{-- TODO[TP03]: Ajouter une validation cote client complete pour tous les champs requis.
+         Le mandat demande validation cote client ET cote serveur. --}}
+
+    {{-- TODO[TP03]: Integrer une bibliotheque de masque JS pour:
+         - code postal canadien (ex: H1H 1H1)
+         - telephone canadien (ex: 450-963-7453) --}}
+
     <div>
         <div>
 
@@ -30,8 +37,6 @@
                     <label for="firstname">Prénom</label>
                     <input type="text" id="firstname" name="firstname" value="{{ old('firstname') }}">
                 </div>
-
-                <div></div>
 
                 <div>
                     @error('email')

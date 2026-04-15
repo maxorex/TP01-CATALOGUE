@@ -27,9 +27,9 @@ class RegisterRequest extends FormRequest
             'firstname' => 'required|min:2|max:30',
             'password' => 'required|min:8|confirmed',
             'address' => 'required|min:5|max:100',
-            'city' => 'required|min:2|max:30',
+            'city' => 'required|min:3|max:30',
             'postal_code' => 'required|regex:/[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d/',
-            'province' => 'required',
+            'province' => 'required|size:2|in:QC,ON,NS,NB,MB,BC,PE,SK,AB,NL,NT,YT',
             'phone' => 'nullable|regex:(?:(\+?\d{1,3}) )?(?:([\(]?\d+[\)]?)[ -])?(\d{1,5}[\- ]?\d{1,5})',
 
         ];
