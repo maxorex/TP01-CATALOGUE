@@ -31,14 +31,12 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        // TODO[TP03]: Rediriger vers la page de profil apres inscription (et non home)
-        // selon le cahier: creation de compte -> authentification auto -> page profil.
         $donnees = $request->validated();
 
 
         $client = new Client();
         $client->name = $donnees["name"];
-        $client->firstname = $donnees["firstname"];
+        $client->first_name = $donnees["firstname"];
         $client->email = $donnees["email"];
         $client->password = Hash::make($donnees["password"]);
         $client->address = $donnees["address"];
@@ -59,7 +57,6 @@ class AuthController extends Controller
 
     public function loginForm()
     {
-        // TODO[TP03]: Verifier la coherence route/nommage avec /connexion.
         return view('auth.login');
     }
 
@@ -79,7 +76,6 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // TODO[TP03]: Verifier la coherence route/nommage avec /deconnexion.
         Auth::guard('client')->logout();
 
         $request->session()->invalidate();

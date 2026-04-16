@@ -1,14 +1,7 @@
-<x-layout titre="DevGear - Créer un compte">
+<x-layout titre="DevGear - Créer un compte" css="auth.css">
 
-    {{-- TODO[TP03]: Ajouter une validation cote client complete pour tous les champs requis.
-         Le mandat demande validation cote client ET cote serveur. --}}
-
-    {{-- TODO[TP03]: Integrer une bibliotheque de masque JS pour:
-         - code postal canadien (ex: H1H 1H1)
-         - telephone canadien (ex: 450-963-7453) --}}
-
-    <div>
-        <div>
+    <div class="auth-page">
+        <div class="auth-card">
 
             <a href="{{ route('home') }}">
                 ← Accueil
@@ -25,7 +18,7 @@
                         </div>
                     @enderror
                     <label for="name">Nom</label>
-                    <input type="text" id="name" name="name" value="{{ old('name') }}">
+                    <input type="text" id="name" name="name" value="{{ old('name') }}" required minlength="2" maxlength="30">
                 </div>
 
                 <div>
@@ -35,7 +28,7 @@
                         </div>
                     @enderror
                     <label for="firstname">Prénom</label>
-                    <input type="text" id="firstname" name="firstname" value="{{ old('firstname') }}">
+                    <input type="text" id="firstname" name="firstname" value="{{ old('firstname') }}" required minlength="2" maxlength="30">
                 </div>
 
                 <div>
@@ -45,7 +38,7 @@
                         </div>
                     @enderror
                     <label for="email">Courriel</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}">
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" required maxlength="255">
                 </div>
 
                 <div>
@@ -55,7 +48,7 @@
                         </div>
                     @enderror
                     <label for="address">Adresse</label>
-                    <input type="text" id="address" name="address" value="{{ old('address') }}">
+                    <input type="text" id="address" name="address" value="{{ old('address') }}" required minlength="5" maxlength="100">
                 </div>
 
                 <div>
@@ -65,7 +58,7 @@
                         </div>
                     @enderror
                     <label for="city">Ville</label>
-                    <input type="text" id="city" name="city" value="{{ old('city') }}">
+                    <input type="text" id="city" name="city" value="{{ old('city') }}" required minlength="2" maxlength="30">
                 </div>
 
                 <div>
@@ -75,7 +68,7 @@
                         </div>
                     @enderror
                     <label for="postal_code">Code postal</label>
-                    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}">
+                    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" required maxlength="7" placeholder="H1H 1H1" pattern="^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$" title="Format attendu: H1H 1H1">
                 </div>
 
                 <div>
@@ -106,7 +99,7 @@
                         </div>
                     @enderror
                     <label for="phone">Téléphone (optionnel)</label>
-                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}">
+                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}" maxlength="12" placeholder="450-963-7453" pattern="^\d{3}-\d{3}-\d{4}$" title="Format attendu: 450-963-7453">
                 </div>
 
                 <div>
@@ -116,13 +109,13 @@
                         </div>
                     @enderror
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password">
-                    <div>Minimum 8 caractères.</div>
+                    <input type="password" id="password" name="password" required minlength="8">
+                    <div class="auth-helper">Minimum 8 caractères.</div>
                 </div>
 
                 <div>
                     <label for="password_confirmation">Confirmer le mot de passe</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation">
+                    <input type="password" id="password_confirmation" name="password_confirmation" required minlength="8">
                 </div>
 
                 

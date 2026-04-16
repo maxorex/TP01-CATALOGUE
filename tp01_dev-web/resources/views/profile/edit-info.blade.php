@@ -1,16 +1,17 @@
-<x-layout title="modifier mes informations">
+<x-layout title="Modifier mon profil" css="auth.css">
 
-    <div class="container">
-        <h2 class="page-title">Modifier mes informations</h2>
+    <div class="container auth-page">
+        <div class="profile-card">
+        <h2 class="page-title">Modifier mon profil</h2>
 
         @if (session('success'))
-            <div role="status">
+            <div role="status" class="auth-message">
                 <strong>Succes</strong> {{ session('success') }}
             </div>
         @endif
 
         @if (session('warning'))
-            <div role="alert">
+            <div role="alert" class="auth-error">
                 <strong>Attention</strong> {{ session('warning') }}
             </div>
         @endif
@@ -20,7 +21,7 @@
 
             <div>
                 @error('name')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -30,17 +31,17 @@
 
             <div>
                 @error('firstname')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
                 <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" value="{{ old('firstname', $client->firstname) }}">
+                <input type="text" id="firstname" name="firstname" value="{{ old('firstname', $client->first_name) }}">
             </div>
 
             <div>
                 @error('address')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -50,7 +51,7 @@
 
             <div>
                 @error('city')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -60,7 +61,7 @@
 
             <div>
                 @error('postal_code')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -70,7 +71,7 @@
 
             <div>
                 @error('province')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -91,7 +92,7 @@
 
             <div>
                 @error('phone')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -102,6 +103,7 @@
             <button type="submit">enregistrer</button>
         </form>
 
+        </div>
     </div>
 
 

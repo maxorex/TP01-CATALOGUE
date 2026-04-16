@@ -11,9 +11,7 @@ class ProfileController extends Controller
 {
     public function profileEditInfo()
     {
-        return view('profile.edit-info', [
-            'client' => Auth::guard('client')->user(),
-        ]);
+        return view('profile.edit-info');
     }
 
     public function profileEditPassword()
@@ -23,20 +21,29 @@ class ProfileController extends Controller
 
     public function profileUpdateInfo(Request $request)
     {
-        $validated = $request->validate([
+        $donnees = $request->validate([
             'name' => 'required|string|min:2|max:30',
             'firstname' => 'required|string|min:2|max:30',
             'address' => 'required|string|min:5|max:100',
-            'city' => 'required|string|min:2|max:30',
+            'city' => 'required|string|min:3|max:30',
             'postal_code' => 'required|regex:/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/',
-            'province' => 'required|in:QC,ON,NB,NS,PE,NL,MB,SK,AB,BC',
+            'province' => 'required|size:2|in:QC,ON,NS,NB,MB,BC,PE,SK,AB,NL,NT,YT,NU',
             'phone' => 'nullable|regex:/^\d{3}-\d{3}-\d{4}$/',
         ]);
 
-        /** @var Client|null $client */
-        $client = Auth::guard('client')->user();
-        abort_unless($client instanceof Client, 403);
-        $client->fill($validated);
+        $client = new Client();
+
+        $client->name = $donnees['name'];
+        $client->first_name = $donnees['firstname'];
+        $client->address = $donnees['address'];
+        $client->city = $donnees['city'];
+        $client->postal_code = $donnees['postal_code'];
+        $client->province = $donnees['province'];
+
+        if (isset($donnees['phone'])) {
+            $client->phone = $donnees['phone'];
+        }
+
         $client->save();
 
         return redirect()->route('profile.edit-info')
@@ -46,25 +53,11 @@ class ProfileController extends Controller
     public function profileUpdatePassword(Request $request)
     {
         $validated = $request->validate([
-            'current_password' => 'required|string',
-            'new_password' => 'required|string|min:8|confirmed|different:current_password',
+            'current_password' => ['required', 'current_password:client'],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        /** @var Client|null $client */
-        $client = Auth::guard('client')->user();
-        abort_unless($client instanceof Client, 403);
-
-        if (!Hash::check($validated['current_password'], $client->password)) {
-            return back()
-                ->withErrors(['current_password' => 'Le mot de passe actuel est invalide.'])
-                ->withInput();
-        }
-
-        if (Hash::check($validated['new_password'], $client->password)) {
-            return back()
-                ->withErrors(['new_password' => 'Le nouveau mot de passe doit etre different de l\'actuel.'])
-                ->withInput();
-        }
+        $client = new Client();
 
         $client->password = Hash::make($validated['new_password']);
         $client->save();
@@ -72,6 +65,4 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit-password')
             ->with('success', 'Votre mot de passe a ete mis a jour.');
     }
-
-
 }

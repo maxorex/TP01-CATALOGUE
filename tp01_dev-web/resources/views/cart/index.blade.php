@@ -41,7 +41,7 @@
 
                                             <p class="small text-secondary mb-2">{{ $item['weapon']->description }}</p>
                                             <p class="text-gradient-orange mb-0">
-                                                {{ $item['weapon']->price }} $ / Unité</p>
+                                                {{ number_format( $item['weapon']->price, 2) }} $ / Unité</p>
                                         </div>
                                     </div>
 
@@ -64,7 +64,7 @@
                                                 data-action="increase" style="width: 36px;">+</button>
                                         </div>
 
-                                        <p class="text-gradient-orange">Total: {{ $item['totalProduct'] }} $</p>
+                                        <p class="text-gradient-orange">Total: {{ number_format( $item['totalProduct'], 2) }} $</p>
 
                                         <a href="{{ route('cart.delete', $item['weapon']->id) }}"
                                             class="btn btn-sm btn-outline-light" title="Delete">✕</a>
@@ -95,27 +95,27 @@
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
                             <span>Sous-total</span>
-                            <span class="text-gradient-orange">{{ $subtotal }}</span>
+                            <span class="text-gradient-orange">{{ number_format((float) $subtotal, 2, ',', ' ') }} $</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
                             <span>Livraison</span>
-                            <span class="text-gradient-orange">0,00</span>
+                            <span class="text-gradient-orange">0,00 $</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2 text-secondary">
                             <span>TPS (5%)</span>
-                            <span class="text-gradient-orange">{{ $totalTPS }}</span>
+                            <span class="text-gradient-orange">{{ $totalTPS }} $</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-3 text-secondary">
                             <span>TVQ (9.975%)</span>
-                            <span class="text-gradient-orange">{{ $totalTVQ }}</span>
+                            <span class="text-gradient-orange">{{ $totalTVQ }} $</span>
                         </div>
 
                         <div class="d-flex justify-content-between border-top border-secondary pt-3 mb-4">
                             <span class="fw-bold">Total</span>
-                            <span class="text-gradient-orange fw-bold fs-5">{{ $total }}</span>
+                            <span class="text-gradient-orange fw-bold fs-5">{{ $total }} $</span>
                         </div>
 
                         <div class="d-grid gap-2 mb-2">

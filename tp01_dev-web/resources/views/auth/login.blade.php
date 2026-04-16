@@ -1,22 +1,12 @@
-<x-layout titre="DevGear - Connexion">
+<x-layout titre="DevGear - Connexion" css="auth.css">
 
-    {{-- TODO[TP03]: Verifier la correspondance avec la route demandee /connexion (FR)
-         et ajuster les liens si vous conservez aussi les routes /login. --}}
-
-    <div>
-        <div>
+    <div class="auth-page">
+        <div class="auth-card">
 
             <a href="{{ route('home') }}">
                 ← Accueil
             </a>
             <h2 class="h2">Connexion</h2>
-            {{-- 
-            @error('nom')
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Erreur</strong> {{ $message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @enderror --}}
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf

@@ -57,7 +57,7 @@ class ClientSeeder extends Seeder
                 'address' => '101 Gotham St',
                 'city' => 'East Side',
                 'postal_code' => 'J2J 2J2',
-                'province' => 'DS',
+                'province' => 'QC',
             ]);
 
             Client::create([
@@ -68,7 +68,7 @@ class ClientSeeder extends Seeder
                 'address' => '101 Stark Tower Rd',
                 'city' => 'New York',
                 'postal_code' => 'M4B 1B3',
-                'province' => 'NY',
+                'province' => 'ON',
             ]);
         }
 }

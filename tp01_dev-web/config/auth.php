@@ -69,14 +69,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
         'clients' => [
-            'driver' => 'eloquent', // modele eloquant
+            'driver' => 'eloquent',
             'model' => App\Models\Client::class,
         ]
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

@@ -1,16 +1,17 @@
-<x-layout title="modifier mon mot de passe">
+<x-layout title="modifier mon mot de passe" css="auth.css">
 
-    <div class="container">
+    <div class="container auth-page">
+        <div class="profile-card">
         <h2 class="page-title">Modifier mon mot de passe</h2>
 
         @if (session('success'))
-            <div role="status">
+            <div role="status" class="auth-message">
                 <strong>Succes</strong> {{ session('success') }}
             </div>
         @endif
 
         @if (session('warning'))
-            <div role="alert">
+            <div role="alert" class="auth-error">
                 <strong>Attention</strong> {{ session('warning') }}
             </div>
         @endif
@@ -20,7 +21,7 @@
 
             <div>
                 @error('current_password')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -30,7 +31,7 @@
 
             <div>
                 @error('new_password')
-                    <div role="alert">
+                    <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
@@ -46,6 +47,7 @@
             <button type="submit">Enregistrer</button>
         </form>
 
+        </div>
     </div>
 
 
