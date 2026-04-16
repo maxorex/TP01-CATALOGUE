@@ -3,4 +3,4 @@ tp02 du cour developpement web
 
 Matias Godbout 2290121
 
-https://tp2.4d6.2290121.techinfo-cstj.ca/public/
+http://tp3.4d6.2290121.techinfo-cstj.ca
