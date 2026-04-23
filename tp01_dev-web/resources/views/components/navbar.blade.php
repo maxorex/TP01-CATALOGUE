@@ -6,6 +6,16 @@
                     <a class="nav-link" href="{{ route('home') }}">Accueil</a>
                 </li>
 
+                @auth('client')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('client.profile') }}">Profil</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('order.history') }}">Mes commandes</a>
+                </li>
+                @endauth
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                 </li>

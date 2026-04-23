@@ -5,13 +5,23 @@
 
     <div class="app-content">
         <section class="container">
+            @if (session('success'))
+                <div class="alert alert-secondary ">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <h3>Catégories</h3>
             <div>
                 <form method="GET" class="row row-cols-auto g-2" action="{{ route('home') }}">
                     @foreach ($categories as $category)
                         <div class="col">
-                            <input type="checkbox" class="btn-check" id="categorie{{ $category->id }}" name="categories[]"
-                                value="{{ $category->id }}" @checked($filtres->contains($category->id))>
+                            <input type="checkbox" class="btn-check" id="categorie{{ $category->id }}"
+                                name="categories[]" value="{{ $category->id }}" @checked($filtres->contains($category->id))>
 
                             <label for="categorie{{ $category->id }}"
                                 class="category-card d-flex flex-column 
@@ -57,8 +67,8 @@
 
                                     @if ($weapon->imagePath)
                                         <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
-                                    @else 
-                                        <img src="{{ asset("images/image-not-available.png") }}"
+                                    @else
+                                        <img src="{{ asset('images/image-not-available.png') }}"
                                             alt="image non disponible">
                                     @endif
 
@@ -66,7 +76,8 @@
                                     <p class="product-description">{{ $weapon->description }}</p>
                                     <div class="product-price">{{ $weapon->price }} $</div>
                                 </a>
-                                <form method="POST" action="{{ route('cart.add') }}" class="d-flex justify-content-center gap-2 mt-2">
+                                <form method="POST" action="{{ route('cart.add') }}"
+                                    class="d-flex justify-content-center gap-2 mt-2">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $weapon->id }}">
                                     <button type="submit" class="btn button-style">Ajouter au panier</button>

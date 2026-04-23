@@ -1,5 +1,7 @@
 <x-layout title="Modifier mon profil" css="auth.css">
 
+    <x-profile.nav />
+    
     <div class="container auth-page">
         <div class="profile-card">
         <h2 class="page-title">Modifier mon profil</h2>
@@ -16,67 +18,67 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('profile.update-info') }}">
+        <form method="POST" action="{{ route('profile.update-info') }}" class="row g-3">
             @csrf
 
-            <div>
+            <div class="col-12">
                 @error('name')
                     <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" value="{{ old('name', $client->name) }}">
+                <label for="name" class="form-label">Nom</label>
+                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $client->name) }}">
             </div>
 
-            <div>
+            <div class="col-12">
                 @error('firstname')
                     <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
-                <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" value="{{ old('firstname', $client->first_name) }}">
+                <label for="firstname" class="form-label">Prénom</label>
+                <input type="text" id="firstname" name="firstname" class="form-control" value="{{ old('firstname', $client->first_name) }}">
             </div>
 
-            <div>
+            <div class="col-12">
                 @error('address')
                     <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
-                <label for="address">Adresse</label>
-                <input type="text" id="address" name="address" value="{{ old('address', $client->address) }}">
+                <label for="address" class="form-label">Adresse</label>
+                <input type="text" id="address" name="address" class="form-control" value="{{ old('address', $client->address) }}">
             </div>
 
-            <div>
+            <div class="col-12 col-md-6">
                 @error('city')
                     <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
-                <label for="city">Ville</label>
-                <input type="text" id="city" name="city" value="{{ old('city', $client->city) }}">
+                <label for="city" class="form-label">Ville</label>
+                <input type="text" id="city" name="city" class="form-control" value="{{ old('city', $client->city) }}">
             </div>
 
-            <div>
+            <div class="col-12 col-md-6">
                 @error('postal_code')
                     <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
-                <label for="postal_code">Code postal</label>
-                <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code', $client->postal_code) }}">
+                <label for="postal_code" class="form-label">Code postal</label>
+                <input type="text" id="postal_code" name="postal_code" class="form-control" value="{{ old('postal_code', $client->postal_code) }}">
             </div>
 
-            <div>
+            <div class="col-12 col-md-6">
                 @error('province')
                     <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
-                <label for="province">Province</label>
-                <select id="province" name="province">
+                <label for="province" class="form-label">Province</label>
+                <select id="province" name="province" class="form-select">
                     <option value="QC"> QC </option>
                     <option value="ON"> ON </option>
                     <option value="NB"> NB </option>
@@ -90,17 +92,19 @@
                 </select>
             </div>
 
-            <div>
+            <div class="col-12 col-md-6">
                 @error('phone')
                     <div role="alert" class="auth-error">
                         <strong>Erreur</strong> {{ $message }}
                     </div>
                 @enderror
-                <label for="phone">Téléphone (optionnel)</label>
-                <input type="text" id="phone" name="phone" value="{{ old('phone', $client->phone) }}">
+                <label for="phone" class="form-label">Téléphone (optionnel)</label>
+                <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', $client->phone) }}">
             </div>
 
-            <button type="submit">enregistrer</button>
+            <div class="col-12">
+                <button type="submit" class="btn btn-accent">Enregistrer</button>
+            </div>
         </form>
 
         </div>

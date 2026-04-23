@@ -1,10 +1,3 @@
-body {
-    min-height: 100vh;
-    background: #ffb700;
-    background: linear-gradient(0deg, rgba(255, 183, 0, 1) 0%, rgba(163, 89, 20, 1) 10%, rgba(69, 37, 0, 1) 35%, rgba(23, 23, 23, 1) 70%);
-    background-attachment: fixed;
-}
-
 .cart {
     padding: 3rem 0;
     background: transparent;
@@ -22,9 +15,8 @@ body {
 }
 
 .cart-navbar {
-    padding: 10px 0;
-    background-color: #0f0f0f;
-    border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--forge-line-soft);
     min-height: 70px;
 }
 
@@ -35,27 +27,28 @@ body {
 
 .cart-navbar .navbar-title {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    background: linear-gradient(90deg, #ffb347, #ff6a00);
+    background: var(--accent-gradient-soft);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .cart-navbar .nav-link {
-    color: #ffb347;
+    color: #ddd6cc;
+    -webkit-text-fill-color: currentColor;
+    padding: 0.45rem 0.8rem;
+    border-radius: 0.45rem;
 }
 
 .cart-navbar .nav-link:hover {
-    color: #ff8c00;
+    color: #fff;
+    background: rgba(242, 173, 78, 0.14);
 }
 
 .cart-panel {
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 140, 0, 0.15);
-    border-radius: 18px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 1rem;
 }
 
 
@@ -65,48 +58,96 @@ body {
     object-fit: cover;
 }
 
-.text-gradient-orange {
-    background: linear-gradient(90deg, #ffd580, #ff8c00);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
+.glass {
+    background: rgba(24, 25, 28, 0.92);
+    border: 1px solid var(--forge-line-soft);
+    box-shadow: var(--forge-shadow);
 }
 
-h1, h2 {
-    background: linear-gradient(90deg, #ffb347, #ff6a00);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.muted {
+    color: var(--forge-muted);
 }
 
-.btn-outline-accent {
+.order-card-header {
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.order-id-badge {
+    width: 42px;
+    height: 42px;
+    font-size: 12px;
     color: #ff8c00;
-    border: 2px solid #ff8c00;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    border: 1.5px solid rgba(255, 140, 0, 0.35);
+    background: rgba(255, 140, 0, 0.12);
 }
 
-.btn-outline-accent:hover {
-    background: rgba(255, 140, 0, 0.1);
-    border-color: #ffb347;
-    color: #ffb347;
+.order-title {
+    font-size: 15px;
 }
 
-.btn-accent {
-    background: linear-gradient(90deg, #ffb347, #ff6a00);
-    border: none;
-    color: #121212;
-    font-weight: 700;
+.order-muted {
+    color: rgba(255, 255, 255, 0.4);
 }
 
-.btn-accent:hover {
-    background: linear-gradient(90deg, #ffd580, #ff8c00);
-    color: #121212;
+.order-delivery-bar {
+    color: rgba(255, 255, 255, 0.4);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 140, 0, 0.04);
 }
 
-.footer {
-    padding: 1rem 0;
-    text-align: center;
-    color: #b0b0b0;
+.order-delivery-date {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.order-items-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: #fff;
+    --bs-table-border-color: rgba(255, 255, 255, 0.06);
+}
+
+.order-items-table thead {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.order-table-head {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.order-col-price {
+    width: 120px;
+}
+
+.order-col-qty {
+    width: 70px;
+}
+
+.order-col-total {
+    width: 110px;
+}
+
+.order-totals-footer {
+    border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.order-totals-box {
+    min-width: 210px;
+}
+
+.order-divider {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.order-empty-state {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.order-empty-icon {
+    opacity: 0.4;
+    font-size: 32px;
+    margin-bottom: 0.75rem;
 }

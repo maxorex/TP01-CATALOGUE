@@ -5,50 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Weapon;
 use Illuminate\Http\Request;
 use App\Models\Constantes;
+use App\Services\CartService;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $cart = session()->get("cart", []);
+        $cart = (new CartService)->calculate();
 
-        $ids = array_keys($cart);
-
-        $weapons = [];
-        if (!empty($ids)) {
-            $weapons = Weapon::whereIn("id", $ids)->get();
-        }
-
-        $items = [];
-        $subtotal = 0;
-
-        foreach ($weapons as $weapon) {
-            $quantity = $cart[$weapon->id] ?? 0;
-
-            $weaponTotal = $quantity * $weapon->price;
-
-            $subtotal += $weaponTotal;
-
-            $items[] = [
-                "weapon" => $weapon,
-                "quantity" => $quantity,
-                "totalProduct" => $weaponTotal
-            ];
-        }
-
-        $amounts = $this->calculateAmounts($subtotal);
-
-        session()->put("total", $amounts["total"]);
-
-
-        return view('cart.index', [
-            "items" => $items,
-            "subtotal" => $subtotal,
-            "totalTPS" => $amounts["tps"],
-            "totalTVQ" => $amounts["tvq"],
-            "total" => $amounts["total"]
+        return view("cart.index", [
+            "items" => $cart["items"],
+            "subTotal" => $cart["subTotal"],
+            "totalTPS" => $cart["totalTPS"],
+            "totalTVQ" => $cart["totalTVQ"],
+            "total" => $cart["total"]
         ]);
     }
+
 
     public function add(Request $request)
     {
@@ -125,19 +98,5 @@ class CartController extends Controller
         empty($cart) ? session()->forget("cart") : session()->put("cart", $cart);
 
         return redirect()->route("cart")->with("success", "Le panier a été mis à jour");
-    }
-
-
-    private function calculateAmounts($subtotal)
-    {
-        $totalTPS = $subtotal * Constantes::$TPS;
-        $totalTVQ = ($totalTPS + $subtotal) * Constantes::$TVQ;
-        $total = $subtotal + $totalTPS + $totalTVQ;
-
-        return [
-            "tps" => number_format($totalTPS, 2, ","),
-            "tvq" => number_format($totalTVQ, 2, ","),
-            "total" => number_format($total, 2, ",")
-        ];
     }
 }

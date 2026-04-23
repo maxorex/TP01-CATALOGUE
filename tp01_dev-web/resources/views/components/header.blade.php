@@ -14,9 +14,11 @@
 
         <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-auto">
             @auth('client')
-                <span class="client-name">
+                <a href="{{ route('client.profile') }}"
+                    class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap">
                     {{ Auth::guard('client')->user()->name }}
-                </span>
+                </a>
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap">
@@ -26,17 +28,19 @@
             @endauth
 
             @guest('client')
-                <a class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap" href="{{ route('loginForm') }}">
+                <a class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap"
+                    href="{{ route('loginForm') }}">
                     Connexion
                 </a>
-                <a class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap" href="{{ route('registerForm') }}">
+                <a class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap"
+                    href="{{ route('registerForm') }}">
                     Inscription
                 </a>
             @endguest
 
-            <a href="{{ route('cart') }}" class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap"
-                title="Panier">
-                <span>Panier <span >🛒</span></span>
+            <a href="{{ route('cart') }}"
+                class="btn btn-outline-light d-inline-flex align-items-center gap-2 text-nowrap" title="Panier">
+                <span>Panier <span>🛒</span></span>
             </a>
         </div>
     </div>

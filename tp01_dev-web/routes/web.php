@@ -6,6 +6,7 @@ use App\Http\Controllers\WeaponController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
 
 
 Route::get('/', [WeaponController::class, 'index'])->name('home');
@@ -40,6 +41,9 @@ Route::post("/profile/password", [ProfileController::class, "profileUpdatePasswo
     ->middleware('auth:client')
     ->name("profile.update-password");
 
+Route::get("/profile", [ProfileController::class, "index"])
+    ->middleware('auth:client')
+    ->name("client.profile");
 
 
 Route::middleware('guest:client')->group(function () {
@@ -61,3 +65,16 @@ Route::middleware('guest:client')->group(function () {
 Route::post("/logout", [AuthController::class, "logout"])
     ->middleware('auth:client')
     ->name("logout");
+
+Route::middleware("auth:client")->group(function () {
+
+    Route::get("/checkout", [OrderController::class, "checkout"])->name("order.checkout");
+
+    Route::post("/checkout/create", [OrderController::class, "pay"])->name("order.pay");
+
+    Route::get("/order/confirm", [OrderController::class, "confirm"])->name("order.confirm");
+
+    Route::get("/order/cancel", [OrderController::class, "cancel"])->name("order.cancel");
+
+    Route::get("/orders/history", [OrderController::class, "history"])->name("order.history");
+});

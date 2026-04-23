@@ -11,12 +11,29 @@ class ProfileController extends Controller
 {
     public function profileEditInfo()
     {
-        return view('profile.edit-info');
+        $client = auth('client')->user();
+
+        return view('profile.edit-info', [
+            'client' => $client,
+        ]);
     }
 
     public function profileEditPassword()
     {
-        return view('profile.edit-password');
+        $client = auth('client')->user();
+
+        return view('profile.edit-password', [
+            'client' => $client,
+        ]);
+    }
+
+    public function index()
+    {
+        $client = auth('client')->user();
+
+        return view('profile.index', [
+            'client' => $client,
+        ]);
     }
 
     public function profileUpdateInfo(Request $request)
@@ -31,7 +48,7 @@ class ProfileController extends Controller
             'phone' => 'nullable|regex:/^\d{3}-\d{3}-\d{4}$/',
         ]);
 
-        $client = new Client();
+        $client = auth('client')->user();
 
         $client->name = $donnees['name'];
         $client->first_name = $donnees['firstname'];
@@ -57,7 +74,7 @@ class ProfileController extends Controller
             'new_password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $client = new Client();
+        $client = auth('client')->user();
 
         $client->password = Hash::make($validated['new_password']);
         $client->save();

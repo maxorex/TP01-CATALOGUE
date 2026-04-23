@@ -1,41 +1,43 @@
-<x-layout titre="DevGear - Connexion" css="auth.css">
+<x-layout title="DevGear - Connexion" css="auth.css">
 
     <div class="auth-page">
         <div class="auth-card">
 
-            <a href="{{ route('home') }}">
+            <a href="{{ route('home') }}" class="text-decoration-none d-inline-block mb-3">
                 ← Accueil
             </a>
-            <h2 class="h2">Connexion</h2>
+            <h2 class="h3 fw-bold">Connexion</h2>
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login') }}" class="row g-3">
                 @csrf
 
-                <div>
+                <div class="col-12">
                     @error('email')
-                        <div role="alert">
+                        <div role="alert" class="auth-error mb-2">
                             <strong>Erreur</strong> {{ $message }}
                         </div>
                     @enderror
-                    <label for="email">Courriel</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}">
+                    <label for="email" class="form-label">Courriel</label>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control">
                 </div>
 
-                <div>
+                <div class="col-12">
                     @error('password')
-                        <div role="alert">
+                        <div role="alert" class="auth-error mb-2">
                             <strong>Erreur</strong> {{ $message }}
                         </div>
                     @enderror
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" id="password" name="password" class="form-control">
                 </div>
 
-                <button type="submit">Se connecter</button>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-accent">Se connecter</button>
+                </div>
             </form>
 
             <hr>
-            <p>
+            <p class="mb-0">
                 Pas encore de compte ?
                 <a href="{{ route('registerForm') }}">Créer un compte</a>
             </p>
