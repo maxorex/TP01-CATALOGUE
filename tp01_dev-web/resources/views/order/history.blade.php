@@ -20,8 +20,8 @@
 
                         <span
                             class="badge rounded-pill                             
-                            @switch($order->status)
-                                @case('en_attente')
+                            @switch($order->state)
+                                @case('en_preparation')
                                     {{ 'bg-warning' }}
                                     @break
                                 @case('envoyee')

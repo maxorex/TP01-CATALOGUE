@@ -19,6 +19,10 @@ class OrderController extends Controller
     {
         $cart = (new CartService)->calculate();
 
+        if (empty($cart['items'])) {
+            return redirect()->route('cart')->with('error', 'Votre panier est vide.');
+        }
+
 
         return view("order.index", [
             "items" => $cart["items"],
@@ -103,6 +107,11 @@ class OrderController extends Controller
         return view("order.history", [
             "orders" => $orders
         ]);
+    }
+
+    public function cancel()
+    {
+        return redirect()->route('cart')->with('error', 'Le paiement a été annulé.');
     }
 
     private function convertToCents($amount)

@@ -82,9 +82,8 @@
         <script src="https://js.stripe.com/v3/"></script>
 
         <script>
-            // init Stripe avec la clé publique
             const stripe = Stripe('{{ $stripeKey }}');
-            // créer un élément de carte
+
             const elements = stripe.elements();
 
             const cardElement = elements.create('card', {
@@ -104,16 +103,13 @@
                 hidePostalCode: true
             })
 
-            // injecter l'elément de carte dans le HTML
             cardElement.mount('#card-element');
 
-            // valider en temp reel le formulaire de paiement
             cardElement.on('change', function(event) {
                 const errorDiv = document.querySelector('#card-errors');
                 errorDiv.textContent = event.error ? event.error.message : '';
             });
 
-            //soumettre le formulaire
             document.querySelector('#payment-form').addEventListener('submit', function(event) {
 
                 event.preventDefault();
