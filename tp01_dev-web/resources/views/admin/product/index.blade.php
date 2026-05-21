@@ -13,7 +13,7 @@
         </div>
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="mt-5 mb-3">Liste des produits</h2>
+            <h2>Liste des produits</h2>
 
             <a href="{{ route('admin.product-add-form') }}" class="btn btn-primary">
                 Ajouter un nouveau produit

@@ -46,7 +46,7 @@
                     <tr>
                         <td>
                             <form action="{{ route('admin.category-edit') }}" method="POST"
-                                class="d-flex align-items-center gap-2">
+                                class="d-flex align-items-center">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $category->id }}">
                                 <input type="text" name="name" class="form-control" value="{{ $category->name }}"

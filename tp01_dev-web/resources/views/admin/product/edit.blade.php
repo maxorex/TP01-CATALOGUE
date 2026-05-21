@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('admin.product-edit', $weapon->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.product-edit', $weapon->id) }}">
                         @csrf
 
 

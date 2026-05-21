@@ -6,7 +6,13 @@
     <div class="row g-4 align-items-start weapon-modal-layout">
         <div class="col-12 col-md-5">
             <div class="weapon-modal-image-wrap">
-                <img src="{{ $weapon->image_url }}" alt="{{ $weapon->name }}" class="weapon-modal-image">
+                @if ($weapon->imagePath)
+                    <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}"
+                        class="weapon-modal-image">
+                @else
+                    <img src="{{ asset('images/image-not-available.png') }}" alt="image non disponible"
+                        class="weapon-modal-image">
+                @endif
             </div>
         </div>
 
