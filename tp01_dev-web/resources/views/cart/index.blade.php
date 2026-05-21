@@ -28,13 +28,8 @@
                                     style="border-color: rgba(255, 140, 0, 0.1);">
                                     <div class="d-flex gap-3 flex-grow-1">
 
-                                        @if ($item['weapon']->imagePath)
-                                            <img src="images/{{ $item['weapon']->imagePath }}"
-                                                alt="{{ $item['weapon']->imagePath }}" class="cart-item-image">
-                                        @else
-                                            <img src="{{ asset('images/image-not-available.png') }}"
-                                                alt="image non disponible" class="cart-item-image">
-                                        @endif
+                                        <img src="{{ $item['weapon']->image_url }}"
+                                            alt="{{ $item['weapon']->name }}" class="cart-item-image">
 
                                         <div class="min-w-0">
                                             <h6 class="mb-1 text-white">{{ $item['weapon']->name }}</h6>

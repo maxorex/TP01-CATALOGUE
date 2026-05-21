@@ -7,6 +7,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', [WeaponController::class, 'index'])->name('home');
@@ -77,4 +78,21 @@ Route::middleware("auth:client")->group(function () {
     Route::get("/order/cancel", [OrderController::class, "cancel"])->name("order.cancel");
 
     Route::get("/orders/history", [OrderController::class, "history"])->name("order.history");
+});
+
+Route::middleware(['isAdmin'])->group(function () {
+
+    Route::get("/admin/category", [AdminController::class, "category"])->name("admin.category");
+    Route::post("/admin/category/add", [AdminController::class, "categoryAdd"])->name("admin.category-add");
+    Route::post("/admin/category", [AdminController::class, "categoryEdit"])->name("admin.category-edit");
+
+    Route::get("/admin/product", [AdminController::class, "product"])->name("admin.product");
+    Route::get("/admin/product/add", [AdminController::class, "productAddForm"])->name("admin.product-add-form");
+    Route::post("/admin/product/add", [AdminController::class, "productAdd"])->name("admin.product-add");
+    Route::get("/admin/product/edit/{id}", [AdminController::class, "productEditForm"])->name("admin.product-edit-form");
+    Route::post("/admin/product/edit/{id}", [AdminController::class, "productEdit"])->name("admin.product-edit");
+
+    Route::get("/admin/order", [AdminController::class, "order"])->name("admin.order");
+    Route::get("/admin/order/{id}", [AdminController::class, "orderDetails"])->name("admin.order-details");
+    Route::post("/admin/order/edit/{id}", [AdminController::class, "orderEdit"])->name("admin.order-edit");
 });

@@ -7,13 +7,26 @@
                 </li>
 
                 @auth('client')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('client.profile') }}">Profil</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('client.profile') }}">Profil</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('order.history') }}">Mes commandes</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('order.history') }}">Mes commandes</a>
+                    </li>
+                @endauth
+                @auth('client')
+                    @if (auth('client')->user()->role === 'ROLE_ADMIN')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.category') }}">Admin - Catégories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.product') }}">Admin - Produits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.order') }}">Admin - Commandes</a>
+                        </li>
+                    @endif
                 @endauth
 
                 <li class="nav-item">

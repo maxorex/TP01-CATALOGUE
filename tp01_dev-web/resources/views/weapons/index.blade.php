@@ -65,12 +65,7 @@
                                     class="btn-details text-decoration-none" data-bs-toggle="modal"
                                     data-bs-target="#weaponModal">
 
-                                    @if ($weapon->imagePath)
-                                        <img src="{{ asset("images/$weapon->imagePath") }}" alt="{{ $weapon->name }}">
-                                    @else
-                                        <img src="{{ asset('images/image-not-available.png') }}"
-                                            alt="image non disponible">
-                                    @endif
+                                    <img src="{{ $weapon->image_url }}" alt="{{ $weapon->name }}">
 
                                     <h3 class="product-name">{{ $weapon->name }}</h3>
                                     <p class="product-description">{{ $weapon->description }}</p>
