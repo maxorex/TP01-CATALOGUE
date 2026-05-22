@@ -14,9 +14,8 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('admin.product-edit', $weapon->id) }}">
+                    <form method="POST" action="{{ route('admin.product-edit', $weapon->id) }}" enctype="multipart/form-data">
                         @csrf
-
 
                         <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="name" name="name"
@@ -43,9 +42,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="category_id" class="form-label">Categorie</label>
-                                <select class="form-select" id="category_id" name="category_id" required>
-
-                                    <option value="">Choisir une categorie</option>
+                                <select class="form-select" id="category_id" name="category_id">
+                                    <option value="{{ old('category_id', $weapon->category_id) }}"> {{ $weapon->category->name }}</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">
                                             {{ $category->name }}

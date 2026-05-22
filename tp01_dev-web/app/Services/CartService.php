@@ -48,7 +48,7 @@ class CartService
         ];
     }
 
-    private function calculateAmounts($subTotal)
+    public function calculateAmounts($subTotal)
     {
         $totalTPS = $subTotal * Constantes::$TPS;
         $totalTVQ = ($totalTPS + $subTotal) * Constantes::$TVQ;

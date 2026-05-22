@@ -8,6 +8,18 @@
             <a href="{{ route('home') }}" class="btn btn-outline-light">Retour au menu</a>
         </div>
 
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @forelse ($orders as $order)
             <div class="card">
                 <div class="card-body">

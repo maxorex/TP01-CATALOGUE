@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Weapon;
 use App\Models\Order;
 use App\Models\Client;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -74,8 +75,16 @@ class AdminController extends Controller
         $weapon->category_id = $validated['category_id'];
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('weapons', 'public');
-            $weapon->imagePath = $path;
+
+            $file = $request->file('image');
+
+            $exe = $file->getClientOriginalExtension();
+
+            $fileName = time() . '.' . $exe;
+
+            $file->move(public_path('images'), $fileName);
+
+            $weapon->imagePath = $fileName;
         }
 
         $weapon->save();
@@ -85,8 +94,9 @@ class AdminController extends Controller
 
     function productEditForm(Request $request)
     {
+        $id = $request->id;
         return view("admin.product.edit", [
-            "weapon" => Weapon::findOrFail($request->id),
+            "weapon" => Weapon::findOrFail($id),
             "categories" => Category::all()
         ]);
     }
@@ -94,7 +104,7 @@ class AdminController extends Controller
     function productEdit(Request $request)
     {
         $id = $request->id;
-    
+
         $weapon = Weapon::findOrFail($id);
 
         $validated = $request->validate([
@@ -112,20 +122,28 @@ class AdminController extends Controller
         $weapon->category_id = $validated['category_id'];
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('weapons', 'public');
-            $weapon->imagePath = $path;
+
+            $file = $request->file('image');
+
+            $exe = $file->getClientOriginalExtension();
+
+            $fileName = time() . '.' . $exe;
+
+            $file->move(public_path('images'), $fileName);
+
+            $weapon->imagePath = $fileName;
         }
 
         $weapon->save();
 
-        return redirect()->route('admin.product')
+        return redirect()->route('admin.product-edit-form', $id)
             ->with('success', 'Le produit à été mis à jour.');
     }
 
     function order()
     {
         return view("admin.order.index", [
-            "orders" => Order::all(),
+            "orders" => Order::latest()->get(),
         ]);
     }
 
@@ -135,16 +153,19 @@ class AdminController extends Controller
 
         $order = Order::findOrFail($id);
 
+        $orderAmounts = (new CartService)->calculateAmounts($order->total_amount);
+
         $client = Client::findOrFail($order->client_id);
 
         return view('admin.order.details', [
             'order' => $order,
+            "orderAmounts" => $orderAmounts,
             'client' => $client,
             "states" => [
-                'en_preparation' => 'En preparation',
-                'envoyee' => 'Envoyee',
+                'en_preparation' => 'En préparation',
+                'envoyee' => 'Envoyée',
                 'en_transit' => 'En transit',
-                'livree' => 'Livree',
+                'livree' => 'Livrée',
             ]
         ]);
     }

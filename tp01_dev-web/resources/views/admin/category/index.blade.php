@@ -2,12 +2,23 @@
 
     <main class="container">
 
-
         <div class="d-flex justify-content-between align-items-center">
             <h1>Gestion des catégories</h1>
 
             <a href="{{ route('home') }}" class="btn btn-outline-light">Retour au menu</a>
         </div>
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+         @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
 
         <div class="card">
@@ -49,7 +60,7 @@
                                 class="d-flex align-items-center">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $category->id }}">
-                                <input type="text" name="name" class="form-control" value="{{ $category->name }}"
+                                <input type="text"name="name" value="{{ $category->name }}"
                                     required>
                         </td>
                         <td>

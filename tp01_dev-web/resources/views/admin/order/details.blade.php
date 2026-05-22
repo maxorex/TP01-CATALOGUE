@@ -8,12 +8,6 @@
                 </div>
 
                 <div class="card-body">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
                     <div class="row">
                         <div class="col-4">
                             <div class="small text-muted">Client</div>
@@ -23,13 +17,9 @@
                             <div class="small text-muted">Date</div>
                             {{ $order->created_at }}
                         </div>
-                        <div class="col-4">
-                            <div class="small text-muted">Total</div>
-                            ${{ number_format($order->total_amount / 100, 2, ',', ' ') }}
-                        </div>
                     </div>
 
-                    <form method="POST" action="{{ route('admin.order-edit', $order->id) }}">
+                    <form method="POST" class="mt-3" action="{{ route('admin.order-edit', $order->id) }}">
                         @csrf
 
                         <div class="row">
@@ -49,38 +39,54 @@
                         </div>
                     </form>
 
-                    <h5>Articles de la commande</h5>
-                    <div class="table-responsive">
+                    <h5  class="mt-3">Articles de la commande</h5>
+                    <div>
                         <table class="table align-middle">
                             <thead>
                                 <tr>
-                                    <th>Produit</th>
-                                    <th>Prix unitaire</th>
-                                    <th>Quantite</th>
-                                    <th>Total</th>
+                                    <th style="color: white">Produit</th>
+                                    <th style="color: white">Prix unitaire</th>
+                                    <th style="color: white">Quantite</th>
+                                    <th style="color: white">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($order->purchases as $purchase)
                                     <tr class="text-white">
                                         <td class="text-white">{{ $purchase->product_name }}</td>
-                                        <td class="text-white">${{ number_format($purchase->unit_price / 100, 2, ',', ' ') }}</td>
+                                        <td class="text-white"> ${{ number_format($purchase->unit_price / 100, 2, ',', ' ') }}</td>
                                         <td class="text-white">{{ $purchase->quantity }}</td>
-                                        <td class="text-white">${{ number_format($purchase->total / 100, 2, ',', ' ') }}</td>
+                                        <td class="text-white"> ${{ number_format($purchase->total / 100, 2, ',', ' ') }}</td>
                                     </tr>
                                 @empty
                                     <tr class="text-white">
                                         <td class="text-white">
-                                            Aucun article trouvé pour cette commande.
+                                            Aucun article trouver pour cette commande.
                                         </td>
                                     </tr>
                                 @endforelse
+
+
                             </tbody>
                         </table>
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <span>TPS (5%)</span>
+                                <span class="price muted">${{ number_format($orderAmounts['tps'] / 100, 2, ',', ' ') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>TVQ (9.975%)</span>
+                                <span class="price muted">${{ number_format($orderAmounts['tvq'] / 100, 2, ',', ' ') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Total</span>
+                                <span>${{ number_format($order->total_amount / 100, 2, ',', ' ') }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
-                    <a href="{{ route('admin.order') }}" class="btn btn-light">Retour</a>
+                    <a href="{{ route('admin.order') }}" class="btn btn-light">retour</a>
                 </div>
             </div>
         </div>
