@@ -17,25 +17,34 @@
                         @csrf
 
                         <label for="name" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="name" name="name"
-                            value="{{ old('name') }}">
+                        <input type="text" class="form-control" id="name" name="name">
+                        @error('name')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
 
 
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="4">{{ old('description') }}</textarea>
+                        <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        @error('description')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
 
 
                         <div class="row">
                             <div class="col-6">
                                 <label for="price" class="form-label">Prix</label>
-                                <input type="number" min="0" class="form-control" id="price" name="price"
-                                    value="{{ old('price') }}">
+                                <input type="decimal" min="0" class="form-control" id="price" name="price">
+                                @error('price')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-6">
                                 <label for="stock" class="form-label">Stock</label>
-                                <input type="number" min="0" class="form-control" id="stock" name="stock"
-                                    value="{{ old('stock') }}">
+                                <input type="number" min="0" class="form-control" id="stock" name="stock">
+                                @error('stock')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -54,8 +63,11 @@
                             </div>
 
                             <div class="col-6">
-                                <label for="image" class="form-label">Image avec format png</label>
+                                <label for="image" class="form-label">Image</label>
                                 <input type="file" name="image" id="image">
+                                @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 

@@ -6,6 +6,9 @@ use App\Models\Category;
 use App\Models\Weapon;
 use App\Models\Order;
 use App\Models\Client;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\ProductRequest;
+use App\Http\Requests\OrderRequest;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 
@@ -19,25 +22,23 @@ class AdminController extends Controller
         ]);
     }
 
-    function categoryAdd(Request $request)
+    function categoryAdd(CategoryRequest $request)
     {
+        $data = $request->validated();
         $category = new Category();
-
-        $category->name = $request->input('name');
-
+        $category->name = $data['name'];
         $category->save();
 
         return redirect()->route('admin.category')->with('success', 'La catégorie a été ajoutée.');
     }
 
-    function categoryEdit(Request $request)
+    function categoryEdit(CategoryRequest $request)
     {
         $id = $request->id;
 
+        $data = $request->validated();
         $category = Category::findOrFail($id);
-
-        $category->name = $request->input('name');
-
+        $category->name = $data['name'];
         $category->save();
 
         return redirect()->route('admin.category')->with('success', 'La catégorie a été modifiée.');
@@ -57,30 +58,22 @@ class AdminController extends Controller
         ]);
     }
 
-    function productAdd(Request $request)
+    function productAdd(ProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer',
-            'category_id' => 'required',
-        ]);
+        $data = $request->validated();
 
         $weapon = new Weapon();
-        $weapon->name = $validated['name'];
-        $weapon->description = $validated['description'];
-        $weapon->price = $validated['price'];
-        $weapon->stock = $validated['stock'];
-        $weapon->category_id = $validated['category_id'];
+        $weapon->name = $data['name'];
+        $weapon->description = $data['description'];
+        $weapon->price = $data['price'];
+        $weapon->stock = $data['stock'];
+        $weapon->category_id = $data['category_id'];
 
         if ($request->hasFile('image')) {
 
             $file = $request->file('image');
 
-            $exe = $file->getClientOriginalExtension();
-
-            $fileName = time() . '.' . $exe;
+            $fileName = $file->getClientOriginalName();
 
             $file->move(public_path('images'), $fileName);
 
@@ -89,45 +82,39 @@ class AdminController extends Controller
 
         $weapon->save();
 
-        return redirect()->route('admin.product')->with('success', 'Le produit a été ajouté.');
+        return redirect()->route('admin.product-edit-form', $weapon->id)
+        ->with('success', 'Le produit a été ajouté.');
     }
 
     function productEditForm(Request $request)
     {
         $id = $request->id;
+
         return view("admin.product.edit", [
             "weapon" => Weapon::findOrFail($id),
             "categories" => Category::all()
         ]);
     }
 
-    function productEdit(Request $request)
+    function productEdit(ProductRequest $request)
     {
         $id = $request->id;
-
+    
         $weapon = Weapon::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer',
-            'category_id' => 'required',
-        ]);
+        $data = $request->validated();
 
-        $weapon->name = $validated['name'];
-        $weapon->description = $validated['description'];
-        $weapon->price = $validated['price'];
-        $weapon->stock = $validated['stock'];
-        $weapon->category_id = $validated['category_id'];
+        $weapon->name = $data['name'];
+        $weapon->description = $data['description'];
+        $weapon->price = $data['price'];
+        $weapon->stock = $data['stock'];
+        $weapon->category_id = $data['category_id'];
 
         if ($request->hasFile('image')) {
 
             $file = $request->file('image');
 
-            $exe = $file->getClientOriginalExtension();
-
-            $fileName = time() . '.' . $exe;
+            $fileName = $file->getClientOriginalName();
 
             $file->move(public_path('images'), $fileName);
 
@@ -170,16 +157,17 @@ class AdminController extends Controller
         ]);
     }
 
-    function orderEdit(Request $request)
+    function orderEdit(OrderRequest $request)
     {
         $id = $request->id;
 
+        $data = $request->validated();
         $order = Order::findOrFail($id);
-        $order->state = $request->state;
+        $order->state = $data['state'];
 
         $order->save();
 
-        return redirect()->route('admin.order')
+        return redirect()->route('admin.order-details', $id)
             ->with('success', 'Le statut de livraison a été mis à jour.');
     }
 }

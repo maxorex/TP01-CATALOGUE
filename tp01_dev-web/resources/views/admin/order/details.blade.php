@@ -7,11 +7,17 @@
                     <h4>Commande #{{ $order->id }}</h4>
                 </div>
 
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
                             <div class="small text-muted">Client</div>
-                            {{ $order->client->first_name }} {{ $order->client->last_name }}
+                            {{ $order->client->first_name }} {{ $order->client->name }}
                         </div>
                         <div class="col-4">
                             <div class="small text-muted">Date</div>
@@ -26,7 +32,9 @@
                             <div class="col-6">
                                 <label for="state" class="form-label">Etat de livraison</label>
                                 <select id="state" name="state" class="form-select">
-
+                                    <option value=" {{ old('state', $order->state) }} ">
+                                        {{ old('state', $order->state) }}
+                                    </option>
                                     @foreach ($states as $state)
                                         <option value="{{ $state }}">
                                             {{ $state }}
@@ -39,7 +47,7 @@
                         </div>
                     </form>
 
-                    <h5  class="mt-3">Articles de la commande</h5>
+                    <h5 class="mt-3">Articles de la commande</h5>
                     <div>
                         <table class="table align-middle">
                             <thead>
@@ -54,9 +62,11 @@
                                 @forelse ($order->purchases as $purchase)
                                     <tr class="text-white">
                                         <td class="text-white">{{ $purchase->product_name }}</td>
-                                        <td class="text-white"> ${{ number_format($purchase->unit_price / 100, 2, ',', ' ') }}</td>
+                                        <td class="text-white">
+                                            ${{ number_format($purchase->unit_price / 100, 2, ',', ' ') }}</td>
                                         <td class="text-white">{{ $purchase->quantity }}</td>
-                                        <td class="text-white"> ${{ number_format($purchase->total / 100, 2, ',', ' ') }}</td>
+                                        <td class="text-white">
+                                            ${{ number_format($purchase->total / 100, 2, ',', ' ') }}</td>
                                     </tr>
                                 @empty
                                     <tr class="text-white">
@@ -72,11 +82,13 @@
                         <div>
                             <div class="d-flex justify-content-between">
                                 <span>TPS (5%)</span>
-                                <span class="price muted">${{ number_format($orderAmounts['tps'] / 100, 2, ',', ' ') }}</span>
+                                <span
+                                    class="price muted">${{ number_format($orderAmounts['tps'] / 100, 2, ',', ' ') }}</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span>TVQ (9.975%)</span>
-                                <span class="price muted">${{ number_format($orderAmounts['tvq'] / 100, 2, ',', ' ') }}</span>
+                                <span
+                                    class="price muted">${{ number_format($orderAmounts['tvq'] / 100, 2, ',', ' ') }}</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span>Total</span>

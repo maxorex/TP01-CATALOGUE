@@ -14,12 +14,6 @@
             </div>
         @endif
 
-         @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
 
         <div class="card">
             <div class="card-body">
@@ -40,8 +34,6 @@
             </div>
         </div>
 
-
-
         <h2>Liste des catégories</h2>
 
         <table class="table align-middle table-dark">
@@ -55,18 +47,20 @@
             <tbody>
                 @forelse ($categories as $category)
                     <tr>
-                        <td>
-                            <form action="{{ route('admin.category-edit') }}" method="POST"
-                                class="d-flex align-items-center">
-                                @csrf
+
+                        <form action="{{ route('admin.category-edit') }}" method="POST">
+                            @csrf
+                            <td>
                                 <input type="hidden" name="id" value="{{ $category->id }}">
-                                <input type="text"name="name" value="{{ $category->name }}"
-                                    required>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-outline-primary">Enregistrer</button>
-                            </form>
-                        </td>
+                                <input type="text" name="name" class="form-control" value="{{ $category->name }}">
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-outline-primary">
+                                    Enregistrer
+                                </button>
+                            </td>
+                        </form>
+
                     </tr>
                 @empty
                     <tr>

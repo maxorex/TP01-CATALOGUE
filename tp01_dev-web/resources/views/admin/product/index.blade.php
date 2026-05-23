@@ -18,12 +18,6 @@
             </div>
         @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
         <div class="d-flex justify-content-between align-items-center">
             <h2>Liste des produits</h2>
 
@@ -50,13 +44,9 @@
                             <tr>
                                 <td>{{ $weapon->id }}</td>
 
-                                <td>
-                                    {{ $weapon->name }}
-                                </td>
+                                <td> {{ $weapon->name }} </td>
 
-                                <td>
-                                    {{ $weapon->price }} $
-                                </td>
+                                <td> {{ $weapon->price }} $ </td>
 
                                 <td>
                                     <a href="{{ route('admin.product-edit-form', $weapon->id) }}"
